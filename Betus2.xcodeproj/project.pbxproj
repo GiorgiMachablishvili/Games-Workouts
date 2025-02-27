@@ -37,11 +37,9 @@
 		E38D37DD2D1970C000A139D6 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38D37DC2D1970C000A139D6 /* Constraint.swift */; };
 		E38D37DF2D19732300A139D6 /* NetwokrManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38D37DE2D19732300A139D6 /* NetwokrManager.swift */; };
 		E38D37E22D19735300A139D6 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E38D37E12D19735300A139D6 /* SnapKit */; };
-		E38D37E42D19735300A139D6 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = E38D37E32D19735300A139D6 /* SnapKit-Dynamic */; };
 		E38D37E72D19735D00A139D6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E38D37E62D19735D00A139D6 /* Kingfisher */; };
 		E38D37EA2D19736800A139D6 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = E38D37E92D19736800A139D6 /* ProgressHUD */; };
 		E38D37ED2D19737200A139D6 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E38D37EC2D19737200A139D6 /* Alamofire */; };
-		E38D37EF2D19737200A139D6 /* AlamofireDynamic in Frameworks */ = {isa = PBXBuildFile; productRef = E38D37EE2D19737200A139D6 /* AlamofireDynamic */; };
 		E38D37F12D19739B00A139D6 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38D37F02D19739B00A139D6 /* UIColor+Extension.swift */; };
 		E38D37F42D19743E00A139D6 /* Goldman-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E38D37F22D19743E00A139D6 /* Goldman-Bold.ttf */; };
 		E38D37F52D19743E00A139D6 /* Goldman-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E38D37F32D19743E00A139D6 /* Goldman-Regular.ttf */; };
@@ -127,12 +125,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E38D37ED2D19737200A139D6 /* Alamofire in Frameworks */,
-				E38D37EF2D19737200A139D6 /* AlamofireDynamic in Frameworks */,
 				E38D37E72D19735D00A139D6 /* Kingfisher in Frameworks */,
 				E38D37FA2D19757A00A139D6 /* SVProgressHUD in Frameworks */,
 				E38D37EA2D19736800A139D6 /* ProgressHUD in Frameworks */,
 				E38D37E22D19735300A139D6 /* SnapKit in Frameworks */,
-				E38D37E42D19735300A139D6 /* SnapKit-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,11 +364,9 @@
 			name = Betus2;
 			packageProductDependencies = (
 				E38D37E12D19735300A139D6 /* SnapKit */,
-				E38D37E32D19735300A139D6 /* SnapKit-Dynamic */,
 				E38D37E62D19735D00A139D6 /* Kingfisher */,
 				E38D37E92D19736800A139D6 /* ProgressHUD */,
 				E38D37EC2D19737200A139D6 /* Alamofire */,
-				E38D37EE2D19737200A139D6 /* AlamofireDynamic */,
 				E38D37F92D19757A00A139D6 /* SVProgressHUD */,
 			);
 			productName = Betus2;
@@ -628,8 +622,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Betus2/Betus2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z8QVL3H8TQ;
+				CURRENT_PROJECT_VERSION = 1.0.1;
+				DEVELOPMENT_TEAM = W5PSWAGPCL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Betus2/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Beat Sports";
@@ -665,8 +659,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Betus2/Betus2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Z8QVL3H8TQ;
+				CURRENT_PROJECT_VERSION = 1.0.1;
+				DEVELOPMENT_TEAM = W5PSWAGPCL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Betus2/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Beat Sports";
@@ -765,11 +759,6 @@
 			package = E38D37E02D19735300A139D6 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		E38D37E32D19735300A139D6 /* SnapKit-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E38D37E02D19735300A139D6 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = "SnapKit-Dynamic";
-		};
 		E38D37E62D19735D00A139D6 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E38D37E52D19735D00A139D6 /* XCRemoteSwiftPackageReference "Kingfisher" */;
@@ -784,11 +773,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E38D37EB2D19737200A139D6 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		E38D37EE2D19737200A139D6 /* AlamofireDynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E38D37EB2D19737200A139D6 /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = AlamofireDynamic;
 		};
 		E38D37F92D19757A00A139D6 /* SVProgressHUD */ = {
 			isa = XCSwiftPackageProductDependency;
