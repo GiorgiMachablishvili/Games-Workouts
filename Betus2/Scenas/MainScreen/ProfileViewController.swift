@@ -33,13 +33,6 @@ class ProfileViewController: UIViewController {
         return view
     }()
 
-    //    private lazy var warningImage: UIImageView = {
-    //        let view = UIImageView(frame: .zero)
-    //        view.image = UIImage(named: "warningImage")
-    //        view.contentMode = .scaleAspectFit
-    //        return view
-    //    }()
-
     private lazy var warningViewRed: WarningViews = {
         let view = WarningViews()
         view.makeRoundCorners(16)
