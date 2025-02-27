@@ -116,6 +116,7 @@
 		E3E87A692D1D73F1009E9B8C /* TrainingStaticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TrainingStaticView.swift; path = Betus2/Scenas/MainScreen/TrainingStaticView.swift; sourceTree = SOURCE_ROOT; };
 		E3E87A6B2D1D8A4E009E9B8C /* HelperProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HelperProfileView.swift; path = Betus2/Scenas/MainScreen/HelperProfileView.swift; sourceTree = SOURCE_ROOT; };
 		E3E87A6D2D1D991F009E9B8C /* WarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningView.swift; sourceTree = "<group>"; };
+		FD8309522D70C776006D57A6 /* Betus2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Betus2.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +227,7 @@
 		E38D37BF2D196F3800A139D6 /* Betus2 */ = {
 			isa = PBXGroup;
 			children = (
+				FD8309522D70C776006D57A6 /* Betus2.entitlements */,
 				E38D37D42D196F8300A139D6 /* App */,
 				E38D37D52D196F8F00A139D6 /* Scenas */,
 				E314053A2D23274100AAA19C /* Views */,
@@ -618,6 +620,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Betus2/Betus2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z8QVL3H8TQ;
@@ -651,6 +654,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Betus2/Betus2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z8QVL3H8TQ;
