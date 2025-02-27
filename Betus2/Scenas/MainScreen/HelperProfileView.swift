@@ -6,7 +6,10 @@ import SnapKit
 class HelperProfileView: UIView {
 
     var rateButton: (() -> Void)?
-
+    var privacyPolicy: (() -> Void)?
+    var terms: (() -> Void)?
+    var support: (() -> Void)?
+    
     private lazy var privacyPolicyButton: UIButton = {
         let view = UIButton(frame: .zero)
         view.setTitle("Privacy policy", for: .normal)
@@ -97,18 +100,18 @@ class HelperProfileView: UIView {
 
     //TODO: add button functions 
     @objc func pressPrivacyPolicyButton() {
-
+        privacyPolicy?()
     }
 
     @objc func pressTermsOfUseButton() {
-
+        terms?()
     }
     @objc func pressRateUsButton() {
         rateButton?()
     }
 
     @objc func pressSupportButton() {
-
+        support?()
     }
 
 }

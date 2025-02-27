@@ -62,6 +62,7 @@
 		E3E87A6A2D1D73F1009E9B8C /* TrainingStaticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E87A692D1D73F1009E9B8C /* TrainingStaticView.swift */; };
 		E3E87A6C2D1D8A4E009E9B8C /* HelperProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E87A6B2D1D8A4E009E9B8C /* HelperProfileView.swift */; };
 		E3E87A6E2D1D9920009E9B8C /* WarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E87A6D2D1D991F009E9B8C /* WarningView.swift */; };
+		FD83095A2D70DAC0006D57A6 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8309592D70DAC0006D57A6 /* WebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +118,7 @@
 		E3E87A6B2D1D8A4E009E9B8C /* HelperProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HelperProfileView.swift; path = Betus2/Scenas/MainScreen/HelperProfileView.swift; sourceTree = SOURCE_ROOT; };
 		E3E87A6D2D1D991F009E9B8C /* WarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningView.swift; sourceTree = "<group>"; };
 		FD8309522D70C776006D57A6 /* Betus2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Betus2.entitlements; sourceTree = "<group>"; };
+		FD8309592D70DAC0006D57A6 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				E38D37C42D196F3800A139D6 /* SignInController.swift */,
+				FD8309592D70DAC0006D57A6 /* WebViewController.swift */,
 			);
 			path = SignInView;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				TargetAttributes = {
 					E38D37BC2D196F3800A139D6 = {
 						CreatedOnToolsVersion = 15.2;
+						LastSwiftMigration = 1620;
 					};
 				};
 			};
@@ -463,6 +467,7 @@
 				E3A868402D205AF400DC3560 /* SuccessfullyOrNotSeccessfullyController.swift in Sources */,
 				E3E87A5D2D1D54E7009E9B8C /* CalendarView.swift in Sources */,
 				E3315EA12D19CDB400C635BF /* TopView.swift in Sources */,
+				FD83095A2D70DAC0006D57A6 /* WebViewController.swift in Sources */,
 				E3580EF62D287E7A007BF553 /* StoreVM.swift in Sources */,
 				E302D4F22D1EF2F6003C0D2E /* HistoryController.swift in Sources */,
 				E349F7422D352999006AFB0C /* NumberOfDays.swift in Sources */,
@@ -620,6 +625,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Betus2/Betus2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -644,6 +650,8 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Betus2/Scenas/SignInView/Betus2-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -654,6 +662,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Betus2/Betus2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -678,6 +687,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Betus2/Scenas/SignInView/Betus2-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

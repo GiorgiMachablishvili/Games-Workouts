@@ -226,31 +226,35 @@ class SignInController: UIViewController {
 
     //TODO: add links
     @objc private func clickTermsButton() {
-
+        let termsURL = "https://beat-sports.pro/terms"
+        let webViewController = WebViewController(urlString: termsURL)
+        navigationController?.present(webViewController, animated: true)
     }
-
+    
     @objc private func clickPrivacyPolicyButton() {
-
+        let termsURL = "https://beat-sports.pro/privacy"
+        let webViewController = WebViewController(urlString: termsURL)
+        navigationController?.present(webViewController, animated: true)
     }
 
     @objc private func clickSignInWithAppleButton() {
-        let mockPushToken = "mockPushToken"
-        let mockAppleToken = "mockAppleToken"
-
-        UserDefaults.standard.setValue(mockPushToken, forKey: "PushToken")
-        UserDefaults.standard.setValue(mockAppleToken, forKey: "AccountCredential")
-
-        createUser()
-
-//        let authorizationProvider = ASAuthorizationAppleIDProvider()
-//        let request = authorizationProvider.createRequest()
-//        request.requestedScopes = [.email, .fullName]
+//        let mockPushToken = "mockPushToken"
+//        let mockAppleToken = "mockAppleToken"
 //
-//        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-//        authorizationController.delegate = self
-//        authorizationController.performRequests()
-//        let mainView = MainDashboardScene()
-//        navigationController?.pushViewController(mainView, animated: true)
+//        UserDefaults.standard.setValue(mockPushToken, forKey: "PushToken")
+//        UserDefaults.standard.setValue(mockAppleToken, forKey: "AccountCredential")
+//
+//        createUser()
+
+        let authorizationProvider = ASAuthorizationAppleIDProvider()
+        let request = authorizationProvider.createRequest()
+        request.requestedScopes = [.email, .fullName]
+
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.performRequests()
+        let mainView = MainDashboardScene()
+        navigationController?.pushViewController(mainView, animated: true)
     }
 
     private func createUser() {
@@ -315,41 +319,41 @@ extension SignInController: ASAuthorizationControllerDelegate /*ASAuthorizationC
         guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
 
         UserDefaults.standard.setValue(credential.user, forKey: "AccountCredential")
-//        createUser()
+        createUser()
     }
 
-    //    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-    //        print("Authorization failed: \(error.localizedDescription)")
-    //        showAlert(title: "Sign In Failed", description: error.localizedDescription)
-    //    }
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        let nsError = error as NSError
-        if nsError.domain == ASAuthorizationError.errorDomain {
-            switch nsError.code {
-            case ASAuthorizationError.canceled.rawValue:
-                print("User canceled the Apple Sign-In process.")
-                // Optionally show a message or simply return
-                return
-            case ASAuthorizationError.failed.rawValue:
-                print("Sign-In failed.")
-                showAlert(title: "Sign In Failed", description: "Something went wrong. Please try again.")
-            case ASAuthorizationError.invalidResponse.rawValue:
-                print("Invalid response from Apple Sign-In.")
-                showAlert(title: "Invalid Response", description: "We couldn't authenticate you. Please try again.")
-            case ASAuthorizationError.notHandled.rawValue:
-                print("Apple Sign-In not handled.")
-                showAlert(title: "Not Handled", description: "The request wasn't handled. Please try again.")
-            case ASAuthorizationError.unknown.rawValue:
-                print("An unknown error occurred.")
-                showAlert(title: "Unknown Error", description: "An unknown error occurred. Please try again.")
-            default:
-                break
-            }
-        } else {
-            print("Authorization failed with error: \(error.localizedDescription)")
-            showAlert(title: "Sign In Failed", description: error.localizedDescription)
+        func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+            print("Authorization failed: \(error.localizedDescription)")
+//            showAlert(title: "Sign In Failed", description: error.localizedDescription)
         }
-    }
+//    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+//        let nsError = error as NSError
+//        if nsError.domain == ASAuthorizationError.errorDomain {
+//            switch nsError.code {
+//            case ASAuthorizationError.canceled.rawValue:
+//                print("User canceled the Apple Sign-In process.")
+//                // Optionally show a message or simply return
+//                return
+//            case ASAuthorizationError.failed.rawValue:
+//                print("Sign-In failed.")
+//                showAlert(title: "Sign In Failed", description: "Something went wrong. Please try again.")
+//            case ASAuthorizationError.invalidResponse.rawValue:
+//                print("Invalid response from Apple Sign-In.")
+//                showAlert(title: "Invalid Response", description: "We couldn't authenticate you. Please try again.")
+//            case ASAuthorizationError.notHandled.rawValue:
+//                print("Apple Sign-In not handled.")
+//                showAlert(title: "Not Handled", description: "The request wasn't handled. Please try again.")
+//            case ASAuthorizationError.unknown.rawValue:
+//                print("An unknown error occurred.")
+//                showAlert(title: "Unknown Error", description: "An unknown error occurred. Please try again.")
+//            default:
+//                break
+//            }
+//        } else {
+//            print("Authorization failed with error: \(error.localizedDescription)")
+//            showAlert(title: "Sign In Failed", description: error.localizedDescription)
+//        }
+//    }
 
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return self.view.window!
