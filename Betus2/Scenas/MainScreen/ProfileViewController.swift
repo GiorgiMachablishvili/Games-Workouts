@@ -33,6 +33,12 @@ class ProfileViewController: UIViewController {
         view.privacyPolicy = { [weak self] in
             self?.privacyPolicyButton()
         }
+        view.terms = { [weak self] in
+            self?.termsButton()
+        }
+        view.support = { [weak self] in
+            self?.supportButton()
+        }
         return view
     }()
 
