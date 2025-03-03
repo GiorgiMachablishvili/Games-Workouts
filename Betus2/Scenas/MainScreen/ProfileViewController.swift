@@ -155,17 +155,20 @@ class ProfileViewController: UIViewController {
     func privacyPolicyButton() {
         let termsURL = "https://beat-sports.pro/privacy"
         let webViewController = WebViewController(urlString: termsURL)
-        navigationController?.present(webViewController, animated: true)    }
-    
+        navigationController?.present(webViewController, animated: true)  
+    }
+
     func termsButton() {
         let termsURL = "https://beat-sports.pro/terms"
         let webViewController = WebViewController(urlString: termsURL)
-        navigationController?.present(webViewController, animated: true)    }
-    
+        navigationController?.present(webViewController, animated: true)
+    }
+
     func supportButton() {
         let termsURL = "https://beat-sports.pro/support"
         let webViewController = WebViewController(urlString: termsURL)
-        navigationController?.present(webViewController, animated: true)    }
+        navigationController?.present(webViewController, animated: true)
+    }
 
     @objc func pressDeleteButton() {
         let alertController = UIAlertController(

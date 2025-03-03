@@ -22,14 +22,7 @@ class TopView: UIView {
         return view
     }()
 
-//    lazy var numberOfWorkoutDays: UIImageView = {
-//        let view = UIImageView(frame: .zero)
-//        view.image = UIImage(named: "rectangle")
-//        view.contentMode = .scaleAspectFit
-//        return view
-//    }()
-
-    lazy var numberOfWorkoutDays:UILabel = {
+    lazy var numberOfWorkoutDays: UILabel = {
         let view = UILabel(frame: .zero)
         view.text = "0"
         view.font = UIFont.goldmanBold(size: 32)
