@@ -8,6 +8,15 @@ class SubscriptionView: UIView {
     var onGoProButtonTap: (() -> Void)?
     var onGoBackMainView: (() -> Void)?
 
+    private lazy var xButton: UIButton = {
+        let view = UIButton(frame: .zero)
+        view.setImage(UIImage(named: "xButton"), for: .normal)
+        view.contentMode = .scaleAspectFit
+        view.backgroundColor = .clear
+        view.addTarget(self, action: #selector(didPressCancelButton), for: .touchUpInside)
+        return view
+    }()
+
     private lazy var subscriptionTitle: UILabel = {
         let view = UILabel(frame: .zero)
         view.text = "Subscription to Pro Level"
@@ -98,6 +107,7 @@ class SubscriptionView: UIView {
     }
 
     private func setup() {
+        addSubview(xButton)
         addSubview(subscriptionTitle)
         addSubview(subscriptionInfo)
         addSubview(subscriptionBenefits)
@@ -108,16 +118,16 @@ class SubscriptionView: UIView {
     }
 
     private func setupConstraints() {
-        subscriptionTitle.snp.remakeConstraints { make in
-            make.top.equalTo(snp.top).offset(24 * Constraint.yCoeff)
-            make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
-            make.height.equalTo(86 * Constraint.yCoeff)
+        xButton.snp.remakeConstraints { make in
+            make.top.equalTo(snp.top).offset(10 * Constraint.yCoeff)
+            make.trailing.equalTo(snp.trailing).offset(-10 * Constraint.yCoeff)
+            make.height.width.equalTo(24 * Constraint.yCoeff)
         }
 
-        subscriptionInfo.snp.remakeConstraints { make in
-            make.top.equalTo(subscriptionTitle.snp.bottom).offset(8 * Constraint.yCoeff)
+        subscriptionTitle.snp.remakeConstraints { make in
+            make.top.equalTo(xButton.snp.bottom).offset(10 * Constraint.yCoeff)
             make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
-            make.height.equalTo(28 * Constraint.yCoeff)
+            make.height.equalTo(86 * Constraint.yCoeff)
         }
 
         subscriptionBenefits.snp.remakeConstraints { make in

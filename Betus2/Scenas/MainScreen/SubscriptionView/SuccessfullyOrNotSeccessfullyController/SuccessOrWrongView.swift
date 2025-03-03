@@ -6,6 +6,7 @@ import SnapKit
 class SuccessOrWrongView: UIView {
 
     var onOkeyButton: (() -> Void)?
+    var pressSupportButton: (() -> Void)?
 
     private lazy var succseeTitle: UILabel = {
         let view = UILabel(frame: .zero)
@@ -221,6 +222,6 @@ class SuccessOrWrongView: UIView {
     }
 
     @objc private func didPressSupportButton() {
-
+        pressSupportButton?()
     }
 }

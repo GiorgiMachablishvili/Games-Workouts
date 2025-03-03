@@ -24,6 +24,9 @@ class SuccessfullyOrNotSuccessfullyController: UIViewController {
         view.onOkeyButton = { [weak self] in
             self?.moveToMainDashboard()
         }
+        view.pressSupportButton = { [weak self] in
+            self?.pressSupportButton()
+        }
         return view
     }()
 
@@ -68,5 +71,11 @@ class SuccessfullyOrNotSuccessfullyController: UIViewController {
                 return
             }
         }
+    }
+
+    private func pressSupportButton() {
+        let termsURL = "https://beat-sports.pro/support"
+        let webViewController = WebViewController(urlString: termsURL)
+        navigationController?.present(webViewController, animated: true)
     }
 }

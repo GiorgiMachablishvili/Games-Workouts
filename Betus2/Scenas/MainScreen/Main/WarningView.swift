@@ -14,13 +14,6 @@ class WarningView: UIView {
         return view
     }()
 
-//    private lazy var warningImage: UIImageView = {
-//        let view = UIImageView(frame: .zero)
-//        view.image = UIImage(named: "warningDarkView")
-//        view.contentMode = .scaleAspectFit
-//        return view
-//    }()
-
     private lazy var warningViewDark: WarningViews = {
         let view = WarningViews()
         view.makeRoundCorners(16)

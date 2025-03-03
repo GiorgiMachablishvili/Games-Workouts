@@ -26,7 +26,7 @@ class WarningViews: UIView {
 
     private lazy var warningInfo: UILabel = {
         let view = UILabel(frame: .zero)
-        view.text = "The workouts presented in the app are recommended and are not professional workouts"
+        view.text = "The workouts in this app are recommended for daily use, but are not professional workouts"
         view.textColor = .redColor
         view.textAlignment = .left
         view.font = UIFont.goldmanRegular(size: 12)
