@@ -8,6 +8,34 @@ class SuccessOrWrongView: UIView {
     var onOkeyButton: (() -> Void)?
     var pressSupportButton: (() -> Void)?
 
+    func showSuccessUI() {
+        succseeTitle.isHidden = false
+        welcomeLabel.isHidden = false
+        subscriptionBenefits.isHidden = false
+
+        wrongTitle.isHidden = true
+        wrongInfoLabel.isHidden = true
+        pointOne.isHidden = true
+        featuresLabel.isHidden = true
+        pointTwo.isHidden = true
+        customLabel.isHidden = true
+        supportButton.isHidden = true
+    }
+
+    func showFailureUI() {
+        succseeTitle.isHidden = true
+        welcomeLabel.isHidden = true
+        subscriptionBenefits.isHidden = true
+
+        wrongTitle.isHidden = false
+        wrongInfoLabel.isHidden = false
+        pointOne.isHidden = false
+        featuresLabel.isHidden = false
+        pointTwo.isHidden = false
+        customLabel.isHidden = false
+        supportButton.isHidden = false
+    }
+
     private lazy var succseeTitle: UILabel = {
         let view = UILabel(frame: .zero)
         view.text = "Successfully"

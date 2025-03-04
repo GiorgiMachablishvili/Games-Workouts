@@ -161,7 +161,7 @@
 				E3315E9E2D19CD6D00C635BF /* Main */,
 				E38471092D1C172E00C92887 /* WorkoutTimeView */,
 				E302D4F02D1EF2D3003C0D2E /* HistoryView */,
-				E3E87A642D1D7310009E9B8C /* Profile */,
+				E3E87A642D1D7310009E9B8C /* ProfileView */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -336,14 +336,14 @@
 			path = SuccessfullyOrNotSeccessfullyController;
 			sourceTree = "<group>";
 		};
-		E3E87A642D1D7310009E9B8C /* Profile */ = {
+		E3E87A642D1D7310009E9B8C /* ProfileView */ = {
 			isa = PBXGroup;
 			children = (
 				E3E87A652D1D7341009E9B8C /* ProfileViewController.swift */,
 				E3E87A692D1D73F1009E9B8C /* TrainingStaticView.swift */,
 				E3E87A6B2D1D8A4E009E9B8C /* HelperProfileView.swift */,
 			);
-			path = Profile;
+			path = ProfileView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -623,7 +623,7 @@
 				CODE_SIGN_ENTITLEMENTS = Betus2/Betus2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.1;
-				DEVELOPMENT_TEAM = W5PSWAGPCL;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Betus2/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Beat Sports";
@@ -660,7 +660,7 @@
 				CODE_SIGN_ENTITLEMENTS = Betus2/Betus2.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.1;
-				DEVELOPMENT_TEAM = W5PSWAGPCL;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Betus2/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Beat Sports";

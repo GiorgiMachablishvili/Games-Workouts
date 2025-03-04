@@ -3,12 +3,18 @@
 import UIKit
 import SnapKit
 import Combine
+import StoreKit
 
 @available(iOS 15.0, *)
 class SubscriptionMainViewController: UIViewController {
 
     private var storeVM = StoreVM()
     private var cancellables = Set<AnyCancellable>()
+    
+//    enum Product: String, CaseIterable {
+//        case monthly = "subscription.monthly"
+//        case yearly = "subscription.yearly"
+//    }
 
     private lazy var tennisBackground: UIImageView = {
         let view = UIImageView(frame: .zero)
@@ -57,10 +63,10 @@ class SubscriptionMainViewController: UIViewController {
         view.backgroundColor = .topBottomViewColorGray
         view.makeRoundCorners(24)
         view.onGoProButtonTap = { [weak self] in
-            self?.moveSuccsOrNotView()
+            self?.moveSuccsOrNotView(isSuccess: false)
         }
         view.onGoBackMainView = { [weak self] in
-            self?.moveToBackView()
+            self?.moveToSignInOrMainView()
         }
         return view
     }()
@@ -145,7 +151,6 @@ class SubscriptionMainViewController: UIViewController {
                 if self.navigationController?.topViewController is SubscriptionMainViewController {
                     return
                 }
-
                 if subscriptions.isEmpty {
                     self.updateMainDashboardForFreeUser()
                 } else {
@@ -174,17 +179,28 @@ class SubscriptionMainViewController: UIViewController {
             selectedView: subscriptionView.yearlySubscription,
             deselectedView: subscriptionView.monthlySubscription
         )
+//        if SKPaymentQueue.canMakePayments() {
+//            let set : Set<String> = [Product.yearly.rawValue]
+//            let productRequest = SKProductsRequest(productIdentifiers: set)
+//            productRequest.delegate = self
+//            productRequest.start()
+//        }
         Task {
             if let yearlyProduct = storeVM.subscriptions.first(where: { $0.id == "subscription.yearly" }) {
                 do {
+                    print("Attempting to purchase: \(yearlyProduct.id)")
                     let transaction = try await storeVM.purchase(yearlyProduct)
 
-                    // Handle successful transaction
                     if transaction != nil {
-
+                        print("Transaction successful: \(transaction!)")
+                    } else {
+                        print("Transaction returned nil.")
                     }
+
+                    moveSuccsOrNotView(isSuccess: transaction != nil)
                 } catch {
                     print("Failed to purchase yearly subscription: \(error)")
+                    moveSuccsOrNotView(isSuccess: false)
                 }
             }
         }
@@ -195,55 +211,32 @@ class SubscriptionMainViewController: UIViewController {
             selectedView: subscriptionView.monthlySubscription,
             deselectedView: subscriptionView.yearlySubscription
         )
+//        if SKPaymentQueue.canMakePayments() {
+//            let set : Set<String> = [Product.monthly.rawValue]
+//            let productRequest = SKProductsRequest(productIdentifiers: set)
+//            productRequest.delegate = self
+//            productRequest.start()
+//        }
         Task {
             if let monthlyProduct = storeVM.subscriptions.first(where: { $0.id == "subscription.monthly" }) {
                 do {
+                    print("Attempting to purchase: \(monthlyProduct.id)")
                     let transaction = try await storeVM.purchase(monthlyProduct)
 
-                    // Handle successful transaction
                     if transaction != nil {
+                        print("Transaction successful: \(transaction!)")
+                    } else {
+                        print("Transaction returned nil.")
                     }
+
+                    moveSuccsOrNotView(isSuccess: transaction != nil)
                 } catch {
                     print("Failed to purchase monthly subscription: \(error)")
+                    moveSuccsOrNotView(isSuccess: false)
                 }
             }
         }
     }
-
-
-//    @objc private func didTapYearlySubscription() {
-//        Task {
-//            if let yearlyProduct = storeVM.subscriptions.first(where: { $0.id == "subscription.yearly" }) {
-//
-//                do {
-//                    try await storeVM.purchase(yearlyProduct)
-//                    updateSubscriptionSelection(
-//                        selectedView: subscriptionView.yearlySubscription,
-//                        deselectedView: subscriptionView.monthlySubscription
-//                    )
-//                } catch {
-//                    print("Failed to purchase yearly subscription: \(error)")
-//                }
-//            }
-//        }
-//    }
-//
-//
-//    @objc private func didTapMonthlySubscription() {
-//        Task {
-//            if let monthlyProduct = storeVM.subscriptions.first(where: { $0.id == "subscription.monthly" }) {
-//                do {
-//                    try await storeVM.purchase(monthlyProduct)
-//                    updateSubscriptionSelection(
-//                        selectedView: subscriptionView.monthlySubscription,
-//                        deselectedView: subscriptionView.yearlySubscription
-//                    )
-//                } catch {
-//                    print("Failed to purchase monthly subscription: \(error)")
-//                }
-//            }
-//        }
-//    }
 
     private func updateSubscriptionSelection(selectedView: UIView, deselectedView: UIView) {
            if let yearlyView = selectedView as? YearlySubscriptionView {
@@ -263,12 +256,58 @@ class SubscriptionMainViewController: UIViewController {
            }
        }
 
-    private func moveSuccsOrNotView() {
-        let succOrNotVC = SuccessfullyOrNotSuccessfullyController()
+    private func moveSuccsOrNotView(isSuccess: Bool) {
+        let succOrNotVC = SuccessfullyOrNotSuccessfullyController(isSuccess: isSuccess)
         navigationController?.pushViewController(succOrNotVC, animated: true)
     }
 
-    private func moveToBackView() {
-        navigationController?.popViewController(animated: true)
+    private func moveToSignInOrMainView() {
+        if let userId = UserDefaults.standard.string(forKey: "userId"), !userId.isEmpty {
+            let mainDashboardVC = MainDashboardScene()
+            navigationController?.pushViewController(mainDashboardVC, animated: true)
+        } else {
+            let signInVC = SignInController()
+            navigationController?.pushViewController(signInVC, animated: true)
+        }
     }
 }
+
+
+//extension SubscriptionMainViewController: SKProductsRequestDelegate, SKPaymentTransactionObserver {
+//    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+//        if let oProduct = response.products.first {
+//            print("Product is available!")
+//            self.purchase(aproduct: oProduct)
+//        } else {
+//            print("Product is not available!")
+//        }
+//    }
+//    
+//    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+//
+//        for transaction in transactions {
+//            switch transaction.transactionState {
+//            case .purchasing:
+//                print("CCustomer is in process of purchase")
+//            case .purchased:
+//                SKPaymentQueue.default().finishTransaction(transaction)
+//                print("purchased")
+//            case .failed:
+//                SKPaymentQueue.default().finishTransaction(transaction)
+//                print("failed")
+//            case .restored:
+//                print("restore")
+//            case .deferred:
+//                print("deferred")
+//            default: break
+//            }
+//        }
+//    }
+//    
+//    func purchase(aproduct: SKProduct) {
+//        let payment = SKPayment(product: aproduct)
+//        SKPaymentQueue.default().add(self)
+//        SKPaymentQueue.default().add(payment)
+//    }
+//
+//}

@@ -14,7 +14,7 @@ class StoreVM: ObservableObject {
     @Published private(set) var subscriptionGroupStatus: RenewalStatic?
 
 
-    private let productIds: [String] = ["subscription.yearly", "subscription.monthly"]
+    let productIds: [String] = ["bsu_1499_1y", "bsu_199_1mo"]
 
     var updateListenerTask : Task<Void, Error>? = nil
 
@@ -53,9 +53,8 @@ class StoreVM: ObservableObject {
     @MainActor
     func requestProducts() async {
         do {
-            //request from the app store using the product ids (hardcoded)
             subscriptions = try await Product.products(for: productIds)
-            print(subscriptions)
+            print("Fetched products: \(subscriptions)")
         } catch {
             print("Failed product request from app store service \(error)")
         }
@@ -94,7 +93,6 @@ class StoreVM: ObservableObject {
             //StoreKit parses the JWS, but it fails verification.
             throw StoreError.failedVerification
         case .verified(let safe):
-            //The result is verified. Return the unwrapped value.
             return safe
         }
 

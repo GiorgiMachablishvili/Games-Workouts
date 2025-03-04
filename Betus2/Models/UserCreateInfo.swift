@@ -7,13 +7,13 @@ public struct UserCreateInfo: Codable {
     let appleToken: String
     let pushToken: String
     let createdAt: String
-    let userType: Bool
+    let isPro: Bool
 
     enum CodingKeys: String, CodingKey {
         case id
         case appleToken = "auth_token"
         case pushToken = "push_token"
         case createdAt = "created_at"
-        case userType = "user_type"
+        case isPro = "is_pro"
     }
 }

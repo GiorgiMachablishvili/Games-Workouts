@@ -5,35 +5,66 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    var storeVM = StoreVM()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         window = UIWindow(windowScene: windowScene)
-        let mainViewController = SubscriptionMainViewController()
-        window?.rootViewController = UINavigationController(rootViewController: mainViewController)
-//        ifUserISCreatedOrNot()
-        window?.makeKeyAndVisible()
+////        let mainViewController = SubscriptionMainViewController()
+////        window?.rootViewController = UINavigationController(rootViewController: mainViewController)
+//        decideInitialViewController()
+////        ifUserISCreatedOrNot()
+//        window?.makeKeyAndVisible()
+        Task {
+            await storeVM.updateCustomerProductStatus()
+            DispatchQueue.main.async {
+                self.decideInitialViewController()
+                self.window?.makeKeyAndVisible()
+            }
+        }
     }
 
-        func ifUserISCreatedOrNot() {
-            if let userId = UserDefaults.standard.string(forKey: "userId"), !userId.isEmpty {
-                print(userId)
-                let mainViewController = MainDashboardScene()
-                UserDefaults.standard.setValue(false, forKey: "isGuestUser")
-                window?.rootViewController = UINavigationController(rootViewController: mainViewController)
+//        func ifUserISCreatedOrNot() {
+//            if let userId = UserDefaults.standard.string(forKey: "userId"), !userId.isEmpty {
+//                print(userId)
+//                let mainViewController = MainDashboardScene()
+//                UserDefaults.standard.setValue(false, forKey: "isGuestUser")
+//                window?.rootViewController = UINavigationController(rootViewController: mainViewController)
+//            } else {
+//                let signInViewController = SignInController()
+//                window?.rootViewController = UINavigationController(rootViewController: signInViewController)
+//            }
+//        }
+
+    private func decideInitialViewController() {
+            let isUserSignedIn = UserDefaults.standard.string(forKey: "userId")?.isEmpty == false
+            let isSubscribed = !(storeVM.purchasedSubscriptions.isEmpty) // Check if any subscription exists
+
+            if isSubscribed {
+                if isUserSignedIn {
+                    // ✅ User is subscribed and signed in → go to MainDashboardScene
+                    let mainViewController = MainDashboardScene()
+                    window?.rootViewController = UINavigationController(rootViewController: mainViewController)
+                } else {
+                    // 🔹 User is subscribed but not signed in → go to SignInController
+                    let signInViewController = SignInController()
+                    window?.rootViewController = UINavigationController(rootViewController: signInViewController)
+                }
             } else {
-                let signInViewController = SignInController()
-                window?.rootViewController = UINavigationController(rootViewController: signInViewController)
+                // ❌ User is NOT subscribed → go to SubscriptionMainViewController
+                let subscriptionViewController = SubscriptionMainViewController()
+                window?.rootViewController = UINavigationController(rootViewController: subscriptionViewController)
             }
         }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+        Task {
+            await storeVM.updateCustomerProductStatus()
+            DispatchQueue.main.async {
+                self.decideInitialViewController()
+            }
+        }
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -45,10 +76,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
     }
-
+    
     func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
+        Task {
+            await storeVM.updateCustomerProductStatus()
+            DispatchQueue.main.async {
+                self.decideInitialViewController()
+            }
+        }
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {

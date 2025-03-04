@@ -3,6 +3,18 @@ import UIKit
 import SnapKit
 
 class SuccessfullyOrNotSuccessfullyController: UIViewController {
+
+    private let isSuccess: Bool
+
+    init(isSuccess: Bool) {
+        self.isSuccess = isSuccess
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     private lazy var firstBubleBackground: UIImageView = {
         let view = UIImageView(frame: .zero)
         view.image = UIImage(named: "appleLogoFrame")
@@ -21,9 +33,19 @@ class SuccessfullyOrNotSuccessfullyController: UIViewController {
         let view = SuccessOrWrongView()
         view.backgroundColor = .topBottomViewColorGray
         view.makeRoundCorners(24)
-        view.onOkeyButton = { [weak self] in
-            self?.moveToMainDashboard()
+
+        if isSuccess {
+            view.showSuccessUI()
+            view.onOkeyButton = { [weak self] in
+                self?.moveToMainDashboard()
+            }
+        } else {
+            view.showFailureUI()
+            view.onOkeyButton = { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            }
         }
+
         view.pressSupportButton = { [weak self] in
             self?.pressSupportButton()
         }
@@ -65,13 +87,31 @@ class SuccessfullyOrNotSuccessfullyController: UIViewController {
     }
 
     private func moveToMainDashboard() {
-        for controller in navigationController?.viewControllers ?? [] {
-            if let dashboard = controller as? MainDashboardScene {
-                navigationController?.popToViewController(dashboard, animated: true)
-                return
+        if isSuccess {
+            let isUserSignedIn = UserDefaults.standard.string(forKey: "userId")?.isEmpty == false
+
+            if isUserSignedIn {
+                // ✅ User is subscribed and signed in → go to MainDashboardScene
+                for controller in navigationController?.viewControllers ?? [] {
+                    if let dashboard = controller as? MainDashboardScene {
+                        navigationController?.popToViewController(dashboard, animated: true)
+                        return
+                    }
+                }
+                let mainDashboardVC = MainDashboardScene()
+                navigationController?.setViewControllers([mainDashboardVC], animated: true)
+            } else {
+                // 🔹 User is subscribed but not signed in → go to SignInController
+                let signInViewController = SignInController()
+                navigationController?.setViewControllers([signInViewController], animated: true)
             }
+        } else {
+            // ❌ If purchase failed, return to the previous page
+            navigationController?.popViewController(animated: true)
         }
     }
+
+
 
     private func pressSupportButton() {
         let termsURL = "https://beat-sports.pro/support"

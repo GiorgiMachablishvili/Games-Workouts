@@ -44,7 +44,7 @@ class YearlySubscriptionView: UIView {
 
     private lazy var discountedPriceLabel: UILabel = {
         let view = UILabel(frame: .zero)
-        view.text = "$ 21.99"
+        view.text = "$ 14.99"
         view.font = UIFont.goldmanRegular(size: 14)
         view.textColor = .whiteColor
         return view

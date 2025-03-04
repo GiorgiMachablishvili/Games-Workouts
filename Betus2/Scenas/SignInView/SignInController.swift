@@ -74,8 +74,8 @@ class SignInController: UIViewController {
 
     private lazy var logInAsGuestButton: UIButton = {
         let view = UIButton(frame: .zero)
-        view.setTitle("log in as guest", for: .normal)
-        view.backgroundColor = .clear
+        view.setTitle("Login as a guest", for: .normal)
+        view.backgroundColor = UIColor(hexString: "#111111")
         view.layer.cornerRadius = 16
         view.addTarget(self, action: #selector(clickLogInAsGuestButton), for: .touchUpInside)
         return view
@@ -137,6 +137,7 @@ class SignInController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.mainBlack
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
 
         setup()
         setupConstraints()

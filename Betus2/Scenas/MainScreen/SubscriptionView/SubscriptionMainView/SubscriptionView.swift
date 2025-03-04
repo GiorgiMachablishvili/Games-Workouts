@@ -1,5 +1,4 @@
 
-
 import UIKit
 import SnapKit
 
@@ -34,14 +33,6 @@ class SubscriptionView: UIView {
         view.textColor = .grayCalendarDayName
         return view
     }()
-
-
-//    private lazy var subscriptionBenefits: UIImageView = {
-//        let view = UIImageView(frame: .zero)
-//        view.image = UIImage(named: "subscrioptionBenefits")
-//        view.contentMode = .scaleAspectFit
-//        return view
-//    }()
 
     private lazy var subscriptionBenefits: SubscriptionBenefitsView = {
         let view = SubscriptionBenefitsView()
@@ -101,7 +92,7 @@ class SubscriptionView: UIView {
         setup()
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -128,6 +119,12 @@ class SubscriptionView: UIView {
             make.top.equalTo(xButton.snp.bottom).offset(10 * Constraint.yCoeff)
             make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
             make.height.equalTo(86 * Constraint.yCoeff)
+        }
+
+        subscriptionInfo.snp.remakeConstraints { make in
+            make.top.equalTo(subscriptionTitle.snp.bottom).offset(8 * Constraint.yCoeff)
+            make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
+            make.height.equalTo(28 * Constraint.yCoeff)
         }
 
         subscriptionBenefits.snp.remakeConstraints { make in

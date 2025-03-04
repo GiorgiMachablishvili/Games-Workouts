@@ -5,21 +5,18 @@ import SnapKit
 
 //@available(iOS 15.0, *)
 class MainDashboardScene: UIViewController {
-
-    private let images = ["", "tennis", "basketball", "volleyball", "soccer", ""]
-
-    //    private var images: [String] {
-    //        return isSubscribed
-    //        ? ["", "soccer", "tennis", "basketball", "volleyball", ""]
-    //        : ["", "soccer", "locked", "locked", "locked", ""]
-    //    }
-
-    var isSubscribed: Bool = false {
+    private var isSubscribed: Bool = false {
         didSet {
             collectionView.reloadData()
-            //            updateBackground()
         }
     }
+
+    private let allSports = ["", "tennis", "basketball", "volleyball", "soccer", ""]
+
+    private var images: [String] {
+        return isSubscribed ? allSports : ["", "soccer", "tennis", "basketball", "volleyball", ""]
+    }
+
 
     private lazy var warningView: WarningView = {
         let view = WarningView()
@@ -90,6 +87,7 @@ class MainDashboardScene: UIViewController {
         setup()
         setupConstraints()
         hiddenOrUnhidden()
+        fetchSubscriptionStatus()
         //        updateBackground()
 
         DispatchQueue.main.async {
@@ -144,12 +142,31 @@ class MainDashboardScene: UIViewController {
         }
     }
 
+    private func fetchSubscriptionStatus() {
+        Task {
+            let storeVM = StoreVM()
+            await storeVM.updateCustomerProductStatus()
+            DispatchQueue.main.async {
+                self.isSubscribed = storeVM.purchasedSubscriptions.isEmpty
+                self.collectionView.reloadData()
+            }
+        }
+    }
+
     private func updateViewForSport(at indexPath: IndexPath) {
         guard !images[indexPath.item].isEmpty else { return }
-        let sportName = images[indexPath.item].uppercased()
-        sportLabel.text = sportName
-        topView.titleLabel.attributedText = topView.makeTopViewAttributedString(for: sportName)
-        updateBottomView(for: images[indexPath.item])
+
+        let sportName = images[indexPath.item].lowercased()
+
+        // Ensure only "soccer" is displayed when not subscribed
+//        if !isSubscribed && sportName != "soccer" {
+//            sportLabel.text = "SOCCER"
+//        } else {
+//            sportLabel.text = sportName.uppercased()
+//        }
+
+        topView.titleLabel.attributedText = topView.makeTopViewAttributedString(for: sportLabel.text ?? "")
+        updateBottomView(for: sportName)
     }
 
     private func hideWarningView() {
@@ -170,9 +187,8 @@ class MainDashboardScene: UIViewController {
     private func hiddenOrUnhidden() {
         let isGuestUser = UserDefaults.standard.bool(forKey: "isGuestUser")
         topView.historyButton.isHidden = isGuestUser
-        //        topView.numberOfWorkoutDays.image = UIImage(named: "guestRectangle")
         topView.numberOfWorkoutDays.isHidden = isGuestUser
-        warningView.isHidden = isGuestUser
+//        warningView.isHidden = isGuestUser
         bottomView.startButton.isHidden = isGuestUser
     }
 
@@ -273,9 +289,8 @@ extension MainDashboardScene: UICollectionViewDelegate, UICollectionViewDataSour
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SportImagesCell", for: indexPath) as? SportImagesCell else {
             return UICollectionViewCell()
         }
-        //        cell.configure(with: images[indexPath.item])
         let sportName = images[indexPath.item]
-        let isLocked = !isSubscribed && (sportName.lowercased() == "tennis" || sportName.lowercased() == "basketball" || sportName.lowercased() == "volleyball")
+        let isLocked = isSubscribed && (sportName != "soccer" && !sportName.isEmpty)
         cell.configure(with: sportName, isLocked: isLocked)
         return cell
     }
@@ -332,7 +347,6 @@ extension MainDashboardScene: UICollectionViewDelegate, UICollectionViewDataSour
             } else {
                 sportCell.backgroundBackView.backgroundColor = .clear
                 sportCell.imageBackgroundColor.backgroundColor = .clear
-                //                sportCell.imageDarkBackgroundColor.backgroundColor = UIColor(hexString: "#000000")
             }
         }
 
@@ -342,7 +356,6 @@ extension MainDashboardScene: UICollectionViewDelegate, UICollectionViewDataSour
             sportLabel.text = sportName.uppercased()
             updateBottomView(for: sportName)
 
-            // Check for locked sports and update the UI
             if !isSubscribed && (sportName == "tennis" || sportName == "basketball" || sportName == "volleyball") {
                 if let cell = collectionView.cellForItem(at: closestIndexPath) as? SportImagesCell {
                     cell.lockedImage.isHidden = false
