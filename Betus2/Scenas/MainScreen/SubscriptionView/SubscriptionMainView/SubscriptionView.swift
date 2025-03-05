@@ -6,6 +6,13 @@ class SubscriptionView: UIView {
 
     var onGoProButtonTap: (() -> Void)?
     var onGoBackMainView: (() -> Void)?
+    var didPressTermsOfUser: (() -> Void)?
+    var didTapYearlySubscription: (() -> Void)?
+    var didTapMonthlySubscription: (() -> Void)?
+
+    var switcherIsOn: (() -> Void)?
+
+    private var selectedSubscriptionType: SubscriptionType? = nil
 
     private lazy var xButton: UIButton = {
         let view = UIButton(frame: .zero)
@@ -40,16 +47,17 @@ class SubscriptionView: UIView {
         return view
     }()
 
-    var yearlySubscription: YearlySubscriptionView = {
+    lazy var yearlySubscription: YearlySubscriptionView = {
         let view = YearlySubscriptionView()
         view.backgroundColor = .topBottomViewColorGray
         view.makeRoundCorners(12)
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.grayCalendarPoints.cgColor
+        
         return view
     }()
 
-    var monthlySubscription: MonthlySubscriptionView = {
+    lazy var monthlySubscription: MonthlySubscriptionView = {
         let view = MonthlySubscriptionView()
         view.backgroundColor = .topBottomViewColorGray
         view.makeRoundCorners(12)
@@ -57,6 +65,26 @@ class SubscriptionView: UIView {
         view.layer.borderColor = UIColor.grayCalendarPoints.cgColor
         return view
     }()
+
+    private lazy var autoSubscriptionLabel: UILabel = {
+        let view = UILabel(frame: .zero)
+        view.text = "Auto-subscription"
+        view.font = UIFont.goldmanRegular(size: 12)
+        view.textColor = .whiteColor
+        view.textAlignment = .left
+        return view
+    }()
+
+    private lazy var autoSubscriptionSwitch: UISwitch = {
+        let view = UISwitch()
+//        view.onTintColor = UIColor(hexString: "#282828")
+//        view.thumbTintColor = .redColor
+        view.onTintColor = UIColor.redColor
+        view.isOn = true
+        view.addTarget(self, action: #selector(didToggleSubscriptionSwitch), for: .valueChanged)
+        return view
+    }()
+
 
     private lazy var goToProButton: UIButton = {
         let view = UIButton(frame: .zero)
@@ -87,6 +115,45 @@ class SubscriptionView: UIView {
         return view
     }()
 
+    private lazy var termsTextView: UITextView = {
+        let view = UITextView()
+        view.isEditable = false
+        view.isScrollEnabled = false
+        view.backgroundColor = .clear
+        view.textAlignment = .center
+        view.delegate = self
+        view.textContainerInset = .zero
+        view.textContainer.lineFragmentPadding = 0
+        view.linkTextAttributes = [
+            .foregroundColor: UIColor.whiteColor,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+
+        let firstLine = "By clicking the “Go to Pro” button you agree to the \n"
+        let secondLine = "terms of use"
+
+        let fullText = firstLine + secondLine
+        let termsOfUseText = "terms of use"
+
+        let attributedString = NSMutableAttributedString(string: fullText, attributes: [
+            .font: UIFont.goldmanRegular(size: 12),
+            .foregroundColor: UIColor.whiteColor.withAlphaComponent(0.3)
+        ])
+
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.lineSpacing = 4
+
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, fullText.count))
+
+        let termsOfUseRange = (fullText as NSString).range(of: termsOfUseText)
+
+        attributedString.addAttribute(.link, value: "termsOfUse", range: termsOfUseRange)
+
+        view.attributedText = attributedString
+        return view
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -104,8 +171,11 @@ class SubscriptionView: UIView {
         addSubview(subscriptionBenefits)
         addSubview(yearlySubscription)
         addSubview(monthlySubscription)
+        addSubview(autoSubscriptionLabel)
+        addSubview(autoSubscriptionSwitch)
         addSubview(goToProButton)
         addSubview(cancelButton)
+        addSubview(termsTextView)
     }
 
     private func setupConstraints() {
@@ -116,7 +186,7 @@ class SubscriptionView: UIView {
         }
 
         subscriptionTitle.snp.remakeConstraints { make in
-            make.top.equalTo(xButton.snp.bottom).offset(10 * Constraint.yCoeff)
+            make.top.equalTo(xButton.snp.bottom).offset(5 * Constraint.yCoeff)
             make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
             make.height.equalTo(86 * Constraint.yCoeff)
         }
@@ -124,11 +194,10 @@ class SubscriptionView: UIView {
         subscriptionInfo.snp.remakeConstraints { make in
             make.top.equalTo(subscriptionTitle.snp.bottom).offset(8 * Constraint.yCoeff)
             make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
-            make.height.equalTo(28 * Constraint.yCoeff)
         }
 
         subscriptionBenefits.snp.remakeConstraints { make in
-            make.top.equalTo(subscriptionInfo.snp.bottom).offset(32 * Constraint.yCoeff)
+            make.top.equalTo(subscriptionInfo.snp.bottom).offset(28 * Constraint.yCoeff)
             make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
             make.height.equalTo(64 * Constraint.yCoeff)
         }
@@ -145,8 +214,19 @@ class SubscriptionView: UIView {
             make.height.equalTo(44 * Constraint.yCoeff)
         }
 
+        autoSubscriptionLabel.snp.remakeConstraints { make in
+            make.top.equalTo(monthlySubscription.snp.bottom).offset(32 * Constraint.yCoeff)
+            make.leading.equalTo(snp.leading).offset(16 * Constraint.xCoeff)
+            make.height.equalTo(26 * Constraint.yCoeff)
+        }
+
+        autoSubscriptionSwitch.snp.remakeConstraints { make in
+            make.centerY.equalTo(autoSubscriptionLabel)
+            make.trailing.equalTo(snp.trailing).offset(-16 * Constraint.xCoeff)
+        }
+
         goToProButton.snp.remakeConstraints { make in
-            make.bottom.equalTo(snp.bottom).offset(-72 * Constraint.yCoeff)
+            make.top.equalTo(autoSubscriptionLabel.snp.bottom).offset(32 * Constraint.yCoeff)
             make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
             make.height.equalTo(48 * Constraint.yCoeff)
         }
@@ -156,6 +236,32 @@ class SubscriptionView: UIView {
             make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
             make.height.equalTo(48 * Constraint.yCoeff)
         }
+
+        termsTextView.snp.remakeConstraints { make in
+            make.top.equalTo(cancelButton.snp.bottom).offset(8 * Constraint.yCoeff)
+            make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
+        }
+    }
+
+    @objc private func didToggleSubscriptionSwitch(_ sender: UISwitch) {
+        if sender.isOn {
+            switcherIsOn?()
+//            if let subscriptionType = selectedSubscriptionType {
+//                switch subscriptionType {
+//                case .yearly:
+//                    print("Auto-subscription is ON for Yearly Plan")
+//                    didTapYearlySubscription?()
+//                case .monthly:
+//                    print("Auto-subscription is ON for Monthly Plan")
+//                    didTapMonthlySubscription?()
+//                }
+//            } else {
+//                print("No subscription plan selected. Please choose one.")
+//                sender.isOn = false
+//            }
+        } else {
+            print("Auto-subscription is OFF")
+        }
     }
 
     @objc private func didPressGoToProButton() {
@@ -164,5 +270,20 @@ class SubscriptionView: UIView {
 
     @objc private func didPressCancelButton() {
         onGoBackMainView?()
+    }
+}
+
+
+extension SubscriptionView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        if URL.absoluteString == "termsOfUse" {
+            openTermsOfUse()
+        }
+        return false
+    }
+
+    //TODO: add links
+    private func openTermsOfUse() {
+        didPressTermsOfUser?()
     }
 }

@@ -39,6 +39,9 @@ class ProfileViewController: UIViewController {
         view.support = { [weak self] in
             self?.supportButton()
         }
+        view.restorePurchases = { [weak self] in
+            self?.restoreUserInfo()
+        }
         return view
     }()
 
@@ -104,7 +107,7 @@ class ProfileViewController: UIViewController {
         helperView.snp.remakeConstraints { make in
             make.top.equalTo(staticView.snp.bottom).offset(8 * Constraint.yCoeff)
             make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
-            make.height.equalTo(220 * Constraint.yCoeff)
+            make.height.equalTo(265 * Constraint.yCoeff)
         }
 
         warningViewRed.snp.remakeConstraints { make in
@@ -120,8 +123,11 @@ class ProfileViewController: UIViewController {
         }
 
         signInButton.snp.remakeConstraints { make in
-            make.top.equalTo(helperView.snp.bottom).offset(8 * Constraint.yCoeff)
-            make.leading.trailing.equalToSuperview().inset(32 * Constraint.xCoeff)
+//            make.top.equalTo(helperView.snp.bottom).offset(8 * Constraint.yCoeff)
+//            make.leading.trailing.equalToSuperview().inset(32 * Constraint.xCoeff)
+//            make.height.equalTo(44 * Constraint.yCoeff)
+            make.top.equalTo(warningViewRed.snp.bottom).offset(8 * Constraint.yCoeff)
+            make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
             make.height.equalTo(44 * Constraint.yCoeff)
         }
     }
@@ -136,14 +142,14 @@ class ProfileViewController: UIViewController {
             volleyballLabel.text = "?"
             tennisLabel.text = "?"
         }
-        warningViewRed.isHidden = true
+//        warningViewRed.isHidden = true
         deleteButton.isHidden = true
         signInButton.isHidden = false
     }
 
     func hiddenOrUnhidden() {
         let isGuestUser = UserDefaults.standard.bool(forKey: "isGuestUser")
-        warningViewRed.isHidden = isGuestUser
+//        warningViewRed.isHidden = isGuestUser
         deleteButton.isHidden = isGuestUser
         signInButton.isHidden = !isGuestUser
     }
@@ -151,7 +157,19 @@ class ProfileViewController: UIViewController {
     private func navigationMainDashboard() {
         navigationController?.popViewController(animated: true)
     }
-    
+
+    private func updateMainDashboardForSubscribedUser() {
+        let mainDashboardVC = MainDashboardScene()
+        mainDashboardVC.view.backgroundColor = .green
+        navigationController?.setViewControllers([mainDashboardVC], animated: true)
+    }
+
+    func restoreUserInfo() {
+        print("🔄 Attempting to restore purchases...")
+        SKPaymentQueue.default().add(self)
+        SKPaymentQueue.default().restoreCompletedTransactions()
+    }
+
     func privacyPolicyButton() {
         let termsURL = "https://beat-sports.pro/privacy"
         let webViewController = WebViewController(urlString: termsURL)
@@ -382,13 +400,6 @@ extension ProfileViewController {
     }
 
     private func updateTrainingStaticView() {
-        //        guard let score = score else { return }
-        //        staticView.updateWorkoutPoints(
-        //            soccer: score.soccerWorkoutCount,
-        //            volleyball: score.volleyballWorkoutCount,
-        //            basketball: score.basketballWorkoutCount,
-        //            tennis: score.tennisWorkoutCount
-        //        )
         let totalSoccerCount = workoutHistory.reduce(0) { $0 + $1.soccerWorkoutCount }
         let totalVolleyballCount = workoutHistory.reduce(0) { $0 + $1.volleyballWorkoutCount }
         let totalBasketballCount = workoutHistory.reduce(0) { $0 + $1.basketballWorkoutCount }
@@ -401,5 +412,37 @@ extension ProfileViewController {
             basketball: totalBasketballCount,
             tennis: totalTennisCount
         )
+    }
+}
+
+extension ProfileViewController: SKPaymentTransactionObserver {
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .restored:
+                print("✅ Purchase restored: \(transaction.payment.productIdentifier)")
+                SKPaymentQueue.default().finishTransaction(transaction)
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Success", description: "Your purchases have been restored.")
+                }
+                updateMainDashboardForSubscribedUser()
+            case .failed:
+                print("❌ Restore failed: \(transaction.error?.localizedDescription ?? "Unknown error")")
+                DispatchQueue.main.async {
+                    self.showAlert(title: "Error", description: "Failed to restore purchases. Please try again.")
+                }
+            default:
+                break
+            }
+        }
+    }
+
+    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        if queue.transactions.isEmpty {
+            print("❌ No purchases found to restore.")
+            DispatchQueue.main.async {
+                self.showAlert(title: "No Purchases", description: "No previous purchases were found for your account.")
+            }
+        }
     }
 }

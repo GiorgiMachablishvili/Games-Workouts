@@ -50,6 +50,7 @@
 		E3A8683C2D20505D00DC3560 /* YearlySubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A8683B2D20505D00DC3560 /* YearlySubscriptionView.swift */; };
 		E3A8683E2D20573000DC3560 /* MonthlySubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A8683D2D20573000DC3560 /* MonthlySubscriptionView.swift */; };
 		E3A868402D205AF400DC3560 /* SuccessfullyOrNotSeccessfullyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A8683F2D205AF400DC3560 /* SuccessfullyOrNotSeccessfullyController.swift */; };
+		E3C0D6E32D789FA50094D4D1 /* SubscriptionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C0D6E22D789FA50094D4D1 /* SubscriptionType.swift */; };
 		E3CDDCAD2D2D73D20014299F /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CDDCAC2D2D73D20014299F /* URL+Extension.swift */; };
 		E3CDDCAF2D2D76EF0014299F /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CDDCAE2D2D76EF0014299F /* EmptyResponse.swift */; };
 		E3D2370D2D1AACA500940F48 /* SportImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D2370C2D1AACA500940F48 /* SportImagesCell.swift */; };
@@ -105,6 +106,7 @@
 		E3A8683B2D20505D00DC3560 /* YearlySubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearlySubscriptionView.swift; sourceTree = "<group>"; };
 		E3A8683D2D20573000DC3560 /* MonthlySubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlySubscriptionView.swift; sourceTree = "<group>"; };
 		E3A8683F2D205AF400DC3560 /* SuccessfullyOrNotSeccessfullyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfullyOrNotSeccessfullyController.swift; sourceTree = "<group>"; };
+		E3C0D6E22D789FA50094D4D1 /* SubscriptionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionType.swift; sourceTree = "<group>"; };
 		E3CDDCAC2D2D73D20014299F /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		E3CDDCAE2D2D76EF0014299F /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
 		E3D2370C2D1AACA500940F48 /* SportImagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportImagesCell.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				E3CDDCAE2D2D76EF0014299F /* EmptyResponse.swift */,
 				E349F7412D352999006AFB0C /* NumberOfDays.swift */,
 				E349F7432D356079006AFB0C /* WorkoutDayCountInRow.swift */,
+				E3C0D6E22D789FA50094D4D1 /* SubscriptionType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				E3A868402D205AF400DC3560 /* SuccessfullyOrNotSeccessfullyController.swift in Sources */,
 				E3E87A5D2D1D54E7009E9B8C /* CalendarView.swift in Sources */,
 				E3315EA12D19CDB400C635BF /* TopView.swift in Sources */,
+				E3C0D6E32D789FA50094D4D1 /* SubscriptionType.swift in Sources */,
 				FD83095A2D70DAC0006D57A6 /* WebViewController.swift in Sources */,
 				E3580EF62D287E7A007BF553 /* StoreVM.swift in Sources */,
 				E302D4F22D1EF2F6003C0D2E /* HistoryController.swift in Sources */,

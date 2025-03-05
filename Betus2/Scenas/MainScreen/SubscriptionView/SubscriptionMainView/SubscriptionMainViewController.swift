@@ -10,7 +10,9 @@ class SubscriptionMainViewController: UIViewController {
 
     private var storeVM = StoreVM()
     private var cancellables = Set<AnyCancellable>()
-    
+
+    private var selectedSubscriptionType: SubscriptionType? = nil
+
 //    enum Product: String, CaseIterable {
 //        case monthly = "subscription.monthly"
 //        case yearly = "subscription.yearly"
@@ -63,10 +65,16 @@ class SubscriptionMainViewController: UIViewController {
         view.backgroundColor = .topBottomViewColorGray
         view.makeRoundCorners(24)
         view.onGoProButtonTap = { [weak self] in
-            self?.moveSuccsOrNotView(isSuccess: false)
+            self?.startSubscription()
         }
         view.onGoBackMainView = { [weak self] in
             self?.moveToSignInOrMainView()
+        }
+        view.didPressTermsOfUser = { [weak self] in
+            self?.pressTermsOfUse()
+        }
+        view.switcherIsOn = { [weak self] in
+            self?.yearlyOrMonthly()
         }
         return view
     }()
@@ -128,7 +136,7 @@ class SubscriptionMainViewController: UIViewController {
         subscriptionView.snp.remakeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
             make.bottom.equalTo(view.snp.bottom).offset(-24 * Constraint.yCoeff)
-            make.height.equalTo(518 * Constraint.yCoeff)
+            make.height.equalTo(612 * Constraint.yCoeff)
         }
     }
 
@@ -174,7 +182,25 @@ class SubscriptionMainViewController: UIViewController {
         navigationController?.setViewControllers([mainDashboardVC], animated: true)
     }
 
+    private func yearlyOrMonthly() {
+        guard let subscriptionType = selectedSubscriptionType else {
+            print("❌ No subscription plan selected. Please choose one.")
+            return
+        }
+
+        switch subscriptionType {
+        case .yearly:
+            print("🔄 Reloading: Auto-subscription is ON for Yearly Plan")
+            didTapYearlySubscription()
+        case .monthly:
+            print("🔄 Reloading: Auto-subscription is ON for Monthly Plan")
+            didTapMonthlySubscription()
+        }
+    }
+
     @objc private func didTapYearlySubscription() {
+        selectedSubscriptionType = .yearly
+
         updateSubscriptionSelection(
             selectedView: subscriptionView.yearlySubscription,
             deselectedView: subscriptionView.monthlySubscription
@@ -185,28 +211,11 @@ class SubscriptionMainViewController: UIViewController {
 //            productRequest.delegate = self
 //            productRequest.start()
 //        }
-        Task {
-            if let yearlyProduct = storeVM.subscriptions.first(where: { $0.id == "subscription.yearly" }) {
-                do {
-                    print("Attempting to purchase: \(yearlyProduct.id)")
-                    let transaction = try await storeVM.purchase(yearlyProduct)
-
-                    if transaction != nil {
-                        print("Transaction successful: \(transaction!)")
-                    } else {
-                        print("Transaction returned nil.")
-                    }
-
-                    moveSuccsOrNotView(isSuccess: transaction != nil)
-                } catch {
-                    print("Failed to purchase yearly subscription: \(error)")
-                    moveSuccsOrNotView(isSuccess: false)
-                }
-            }
-        }
     }
 
     @objc private func didTapMonthlySubscription() {
+        selectedSubscriptionType = .monthly
+
         updateSubscriptionSelection(
             selectedView: subscriptionView.monthlySubscription,
             deselectedView: subscriptionView.yearlySubscription
@@ -217,25 +226,6 @@ class SubscriptionMainViewController: UIViewController {
 //            productRequest.delegate = self
 //            productRequest.start()
 //        }
-        Task {
-            if let monthlyProduct = storeVM.subscriptions.first(where: { $0.id == "subscription.monthly" }) {
-                do {
-                    print("Attempting to purchase: \(monthlyProduct.id)")
-                    let transaction = try await storeVM.purchase(monthlyProduct)
-
-                    if transaction != nil {
-                        print("Transaction successful: \(transaction!)")
-                    } else {
-                        print("Transaction returned nil.")
-                    }
-
-                    moveSuccsOrNotView(isSuccess: transaction != nil)
-                } catch {
-                    print("Failed to purchase monthly subscription: \(error)")
-                    moveSuccsOrNotView(isSuccess: false)
-                }
-            }
-        }
     }
 
     private func updateSubscriptionSelection(selectedView: UIView, deselectedView: UIView) {
@@ -256,6 +246,31 @@ class SubscriptionMainViewController: UIViewController {
            }
        }
 
+    private func startSubscription() {
+        guard let subscriptionType = selectedSubscriptionType else {
+            print("❌ No subscription selected!")
+            return
+        }
+
+        let productID = subscriptionType == .yearly ? "subscription.yearly" : "subscription.monthly"
+        print("🚀 Starting Subscription for \(productID)")
+
+        Task {
+            if let product = storeVM.subscriptions.first(where: { $0.id == productID }) {
+                do {
+                    let transaction = try await storeVM.purchase(product)
+                    let success = transaction != nil
+                    print(success ? "🎉 Subscription Successful!" : "❌ Subscription Failed")
+
+                    moveSuccsOrNotView(isSuccess: success)
+                } catch {
+                    print("❌ Subscription Error: \(error)")
+                    moveSuccsOrNotView(isSuccess: false)
+                }
+            }
+        }
+    }
+
     private func moveSuccsOrNotView(isSuccess: Bool) {
         let succOrNotVC = SuccessfullyOrNotSuccessfullyController(isSuccess: isSuccess)
         navigationController?.pushViewController(succOrNotVC, animated: true)
@@ -269,6 +284,12 @@ class SubscriptionMainViewController: UIViewController {
             let signInVC = SignInController()
             navigationController?.pushViewController(signInVC, animated: true)
         }
+    }
+
+    private func pressTermsOfUse() {
+        let termsURL = "https://beat-sports.pro/terms"
+        let webViewController = WebViewController(urlString: termsURL)
+        navigationController?.present(webViewController, animated: true)
     }
 }
 

@@ -11,18 +11,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         window = UIWindow(windowScene: windowScene)
-////        let mainViewController = SubscriptionMainViewController()
-////        window?.rootViewController = UINavigationController(rootViewController: mainViewController)
-//        decideInitialViewController()
+        let mainViewController = SubscriptionMainViewController()
+        window?.rootViewController = UINavigationController(rootViewController: mainViewController)
+        decideInitialViewController()
 ////        ifUserISCreatedOrNot()
-//        window?.makeKeyAndVisible()
-        Task {
-            await storeVM.updateCustomerProductStatus()
-            DispatchQueue.main.async {
-                self.decideInitialViewController()
-                self.window?.makeKeyAndVisible()
-            }
-        }
+        window?.makeKeyAndVisible()
+
+
+//        Task {
+//            await storeVM.updateCustomerProductStatus()
+//            DispatchQueue.main.async {
+//                self.decideInitialViewController()
+//                self.window?.makeKeyAndVisible()
+//            }
+//        }
+
     }
 
 //        func ifUserISCreatedOrNot() {
