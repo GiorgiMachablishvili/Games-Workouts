@@ -11,10 +11,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         window = UIWindow(windowScene: windowScene)
-        let mainViewController = SubscriptionMainViewController()
-        window?.rootViewController = UINavigationController(rootViewController: mainViewController)
+//        let mainViewController = SubscriptionMainViewController()
+//        window?.rootViewController = UINavigationController(rootViewController: mainViewController)
         decideInitialViewController()
-////        ifUserISCreatedOrNot()
+//        ifUserISCreatedOrNot()
         window?.makeKeyAndVisible()
 
 
@@ -41,25 +41,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        }
 
     private func decideInitialViewController() {
-            let isUserSignedIn = UserDefaults.standard.string(forKey: "userId")?.isEmpty == false
-            let isSubscribed = !(storeVM.purchasedSubscriptions.isEmpty) // Check if any subscription exists
+        let isUserSignedIn = UserDefaults.standard.string(forKey: "userId")?.isEmpty == false
+        let isSubscribed = UserDefaults.standard.bool(forKey: "isSubscribed")
 
-            if isSubscribed {
-                if isUserSignedIn {
-                    // ✅ User is subscribed and signed in → go to MainDashboardScene
-                    let mainViewController = MainDashboardScene()
-                    window?.rootViewController = UINavigationController(rootViewController: mainViewController)
-                } else {
-                    // 🔹 User is subscribed but not signed in → go to SignInController
-                    let signInViewController = SignInController()
-                    window?.rootViewController = UINavigationController(rootViewController: signInViewController)
-                }
+        if isSubscribed {
+            if isUserSignedIn {
+                // ✅ User is subscribed and signed in → go to MainDashboardScene
+                let mainViewController = MainDashboardScene()
+                window?.rootViewController = UINavigationController(rootViewController: mainViewController)
             } else {
-                // ❌ User is NOT subscribed → go to SubscriptionMainViewController
-                let subscriptionViewController = SubscriptionMainViewController()
-                window?.rootViewController = UINavigationController(rootViewController: subscriptionViewController)
+                // 🔹 User is subscribed but not signed in → go to SignInController
+                let signInViewController = SignInController()
+                window?.rootViewController = UINavigationController(rootViewController: signInViewController)
             }
+        } else {
+            // ❌ User is NOT subscribed → go to SubscriptionMainViewController
+            let subscriptionViewController = SubscriptionMainViewController()
+            window?.rootViewController = UINavigationController(rootViewController: subscriptionViewController)
         }
+    }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         Task {

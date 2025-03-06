@@ -102,6 +102,7 @@ class StoreVM: ObservableObject {
     @MainActor
     func updateCustomerProductStatus() async {
         var hasActiveSubscription = false
+        purchasedSubscriptions.removeAll()
 
         for await result in Transaction.currentEntitlements {
             do {
@@ -123,6 +124,8 @@ class StoreVM: ObservableObject {
 
         // Update subscription group status
         subscriptionGroupStatus = hasActiveSubscription ? .subscribed : .expired
+
+        UserDefaults.standard.setValue(hasActiveSubscription, forKey: "isSubscribed")
     }
 }
 

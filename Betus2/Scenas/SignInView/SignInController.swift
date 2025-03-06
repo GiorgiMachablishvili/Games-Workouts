@@ -263,11 +263,13 @@ class SignInController: UIViewController {
 
         let pushToken = UserDefaults.standard.string(forKey: "PushToken") ?? ""
         let appleToken = UserDefaults.standard.string(forKey: "AccountCredential") ?? ""
+        let isProOrNot = UserDefaults.standard.bool(forKey: "isSubscribed")
 
         // Prepare parameters
         let parameters: [String: Any] = [
             "push_token": pushToken,
-            "auth_token": appleToken
+            "auth_token": appleToken,
+            "is_pro": isProOrNot
         ]
 
         NetworkManager.shared.post(
