@@ -55,9 +55,9 @@ class StoreVM: ObservableObject {
     func requestProducts() async {
         do {
             subscriptions = try await Product.products(for: productIds)
-            print("Fetched products: \(subscriptions)")
+            print("✅ Products fetched: \(subscriptions.map { $0.id })")
         } catch {
-            print("Failed product request from app store service \(error)")
+            print("❌ Failed to fetch products: \(error)")
         }
     }
 

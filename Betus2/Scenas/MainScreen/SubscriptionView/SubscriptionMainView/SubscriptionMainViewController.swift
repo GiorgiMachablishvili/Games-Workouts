@@ -87,6 +87,11 @@ class SubscriptionMainViewController: UIViewController {
         setupConstraints()
         addGestureRecognizers()
         observeSubscriptionChanges()
+
+        Task {
+            print("🔄 Fetching products before user can subscribe...")
+            await storeVM.requestProducts()
+        }
     }
 
     private func setup() {
@@ -255,9 +260,28 @@ class SubscriptionMainViewController: UIViewController {
         let productID = subscriptionType == .yearly ? "bsu_1499_1year" : "bsu_199_1month"
         print("🚀 Starting Subscription for \(productID)")
 
+//        Task {
+//            if let product = storeVM.subscriptions.first(where: { $0.id == productID }) {
+//                do {
+//                    let transaction = try await storeVM.purchase(product)
+//                    let success = transaction != nil
+//                    print(success ? "🎉 Subscription Successful!" : "❌ Subscription Failed")
+//
+//                    moveSuccsOrNotView(isSuccess: success)
+//                } catch {
+//                    print("❌ Subscription Error: \(error)")
+//                    moveSuccsOrNotView(isSuccess: false)
+//                }
+//            }
+//        }
+
         Task {
+            print("✅ Inside Task block") // Debugging
+            let productID = selectedSubscriptionType == .yearly ? "bsu_1499_1year" : "bsu_199_1month"
+
             if let product = storeVM.subscriptions.first(where: { $0.id == productID }) {
                 do {
+                    print("💳 Purchasing product: \(product.id)")
                     let transaction = try await storeVM.purchase(product)
                     let success = transaction != nil
                     print(success ? "🎉 Subscription Successful!" : "❌ Subscription Failed")
@@ -267,8 +291,11 @@ class SubscriptionMainViewController: UIViewController {
                     print("❌ Subscription Error: \(error)")
                     moveSuccsOrNotView(isSuccess: false)
                 }
+            } else {
+                print("❌ ERROR: Product with ID \(productID) not found in storeVM.subscriptions!")
             }
         }
+
     }
 
     private func moveSuccsOrNotView(isSuccess: Bool) {
