@@ -14,7 +14,8 @@ class StoreVM: ObservableObject {
     @Published private(set) var subscriptionGroupStatus: RenewalStatic?
 
 
-    let productIds: [String] = ["subscription.yearly", "subscription.monthly"]
+//    let productIds: [String] = ["subscription.yearly", "subscription.monthly"]
+    let productIds: [String] = ["bsu_1499_1year", "bsu_199_1month"]
 
     var updateListenerTask : Task<Void, Error>? = nil
 
