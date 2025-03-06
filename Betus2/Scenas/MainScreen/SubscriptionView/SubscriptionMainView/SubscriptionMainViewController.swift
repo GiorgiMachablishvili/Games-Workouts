@@ -252,7 +252,7 @@ class SubscriptionMainViewController: UIViewController {
             return
         }
 
-        let productID = subscriptionType == .yearly ? "subscription.yearly" : "subscription.monthly"
+        let productID = subscriptionType == .yearly ? "bsu_1499_1year" : "bsu_199_1month"
         print("🚀 Starting Subscription for \(productID)")
 
         Task {
