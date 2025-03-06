@@ -52,12 +52,26 @@ class StoreVM: ObservableObject {
     }
 
     @MainActor
+//    func requestProducts() async {
+//        do {
+//            subscriptions = try await Product.products(for: productIds)
+//            print("✅ Products fetched: \(subscriptions.map { $0.id })")
+//        } catch {
+//            print("❌ Failed to fetch products: \(error)")
+//        }
+//    }
+
     func requestProducts() async {
         do {
+            print("⏳ Requesting products from App Store...")
             subscriptions = try await Product.products(for: productIds)
             print("✅ Products fetched: \(subscriptions.map { $0.id })")
+
+            if subscriptions.isEmpty {
+                print("❌ No products found! Check App Store Connect.")
+            }
         } catch {
-            print("❌ Failed to fetch products: \(error)")
+            print("❌ Failed to fetch products: \(error.localizedDescription)")
         }
     }
 
