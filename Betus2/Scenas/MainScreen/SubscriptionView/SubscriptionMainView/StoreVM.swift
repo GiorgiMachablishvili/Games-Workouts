@@ -61,6 +61,8 @@ class StoreVM: ObservableObject {
 //        }
 //    }
 
+    //TODO: ✅ Products fetched: [] ❌ No products found! Check App Store Connect.
+    
     func requestProducts() async {
         do {
             print("⏳ Requesting products from App Store...")
