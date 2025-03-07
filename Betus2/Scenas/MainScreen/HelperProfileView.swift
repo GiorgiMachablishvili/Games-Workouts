@@ -55,16 +55,16 @@ class HelperProfileView: UIView {
         return view
     }()
 
-    private lazy var restorePurchasesButton: UIButton = {
-        let view = UIButton(frame: .zero)
-        view.setTitle("Restore purchases", for: .normal)
-        view.setTitleColor(UIColor.whiteColor, for: .normal)
-        view.titleLabel?.font = UIFont.goldmanRegular(size: 14)
-        view.makeRoundCorners(23)
-        view.backgroundColor = .grayCalendarPoints
-        view.addTarget(self, action: #selector(pressRestorePurchasesButton), for: .touchUpInside)
-        return view
-    }()
+//    private lazy var restorePurchasesButton: UIButton = {
+//        let view = UIButton(frame: .zero)
+//        view.setTitle("Restore purchases", for: .normal)
+//        view.setTitleColor(UIColor.whiteColor, for: .normal)
+//        view.titleLabel?.font = UIFont.goldmanRegular(size: 14)
+//        view.makeRoundCorners(23)
+//        view.backgroundColor = .grayCalendarPoints
+//        view.addTarget(self, action: #selector(pressRestorePurchasesButton), for: .touchUpInside)
+//        return view
+//    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -82,7 +82,7 @@ class HelperProfileView: UIView {
         addSubview(termsOfUseButton)
         addSubview(rateUsButton)
         addSubview(supportButton)
-        addSubview(restorePurchasesButton)
+//        addSubview(restorePurchasesButton)
     }
 
     private func setupConstraints() {
@@ -110,11 +110,11 @@ class HelperProfileView: UIView {
             make.height.equalTo(44 * Constraint.yCoeff)
         }
 
-        restorePurchasesButton.snp.remakeConstraints { make in
-            make.top.equalTo(supportButton.snp.bottom).offset(4 * Constraint.yCoeff)
-            make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
-            make.height.equalTo(44 * Constraint.yCoeff)
-        }
+//        restorePurchasesButton.snp.remakeConstraints { make in
+//            make.top.equalTo(supportButton.snp.bottom).offset(4 * Constraint.yCoeff)
+//            make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
+//            make.height.equalTo(44 * Constraint.yCoeff)
+//        }
     }
 
     //TODO: add button functions 
@@ -133,7 +133,7 @@ class HelperProfileView: UIView {
         support?()
     }
 
-    @objc func pressRestorePurchasesButton() {
-        restorePurchases?()
-    }
+//    @objc func pressRestorePurchasesButton() {
+//        restorePurchases?()
+//    }
 }

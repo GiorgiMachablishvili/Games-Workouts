@@ -39,9 +39,9 @@ class ProfileViewController: UIViewController {
         view.support = { [weak self] in
             self?.supportButton()
         }
-        view.restorePurchases = { [weak self] in
-            self?.restoreUserInfo()
-        }
+//        view.restorePurchases = { [weak self] in
+//            self?.restoreUserInfo()
+//        }
         return view
     }()
 
@@ -107,7 +107,7 @@ class ProfileViewController: UIViewController {
         helperView.snp.remakeConstraints { make in
             make.top.equalTo(staticView.snp.bottom).offset(8 * Constraint.yCoeff)
             make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
-            make.height.equalTo(265 * Constraint.yCoeff)
+            make.height.equalTo(221 * Constraint.yCoeff)
         }
 
         warningViewRed.snp.remakeConstraints { make in
@@ -164,11 +164,11 @@ class ProfileViewController: UIViewController {
         navigationController?.setViewControllers([mainDashboardVC], animated: true)
     }
 
-    func restoreUserInfo() {
-        print("🔄 Attempting to restore purchases...")
-        SKPaymentQueue.default().add(self)
-        SKPaymentQueue.default().restoreCompletedTransactions()
-    }
+//    func restoreUserInfo() {
+//        print("🔄 Attempting to restore purchases...")
+//        SKPaymentQueue.default().add(self)
+//        SKPaymentQueue.default().restoreCompletedTransactions()
+//    }
 
     func privacyPolicyButton() {
         let termsURL = "https://beat-sports.pro/privacy"
