@@ -51,6 +51,7 @@
 		E3A8683E2D20573000DC3560 /* MonthlySubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A8683D2D20573000DC3560 /* MonthlySubscriptionView.swift */; };
 		E3A868402D205AF400DC3560 /* SuccessfullyOrNotSeccessfullyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A8683F2D205AF400DC3560 /* SuccessfullyOrNotSeccessfullyController.swift */; };
 		E3C0D6E32D789FA50094D4D1 /* SubscriptionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C0D6E22D789FA50094D4D1 /* SubscriptionType.swift */; };
+		E3C0D6F82D7AE0D00094D4D1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3C0D6F72D7AE0CF0094D4D1 /* StoreKit.framework */; };
 		E3CDDCAD2D2D73D20014299F /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CDDCAC2D2D73D20014299F /* URL+Extension.swift */; };
 		E3CDDCAF2D2D76EF0014299F /* EmptyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CDDCAE2D2D76EF0014299F /* EmptyResponse.swift */; };
 		E3D2370D2D1AACA500940F48 /* SportImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D2370C2D1AACA500940F48 /* SportImagesCell.swift */; };
@@ -107,6 +108,7 @@
 		E3A8683D2D20573000DC3560 /* MonthlySubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlySubscriptionView.swift; sourceTree = "<group>"; };
 		E3A8683F2D205AF400DC3560 /* SuccessfullyOrNotSeccessfullyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfullyOrNotSeccessfullyController.swift; sourceTree = "<group>"; };
 		E3C0D6E22D789FA50094D4D1 /* SubscriptionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionType.swift; sourceTree = "<group>"; };
+		E3C0D6F72D7AE0CF0094D4D1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		E3CDDCAC2D2D73D20014299F /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		E3CDDCAE2D2D76EF0014299F /* EmptyResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyResponse.swift; sourceTree = "<group>"; };
 		E3D2370C2D1AACA500940F48 /* SportImagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportImagesCell.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				E38D37ED2D19737200A139D6 /* Alamofire in Frameworks */,
 				E38D37E72D19735D00A139D6 /* Kingfisher in Frameworks */,
 				E38D37FA2D19757A00A139D6 /* SVProgressHUD in Frameworks */,
+				E3C0D6F82D7AE0D00094D4D1 /* StoreKit.framework in Frameworks */,
 				E38D37EA2D19736800A139D6 /* ProgressHUD in Frameworks */,
 				E38D37E22D19735300A139D6 /* SnapKit in Frameworks */,
 			);
@@ -214,6 +217,7 @@
 				E38D37BF2D196F3800A139D6 /* Betus2 */,
 				E3580EF72D2881C3007BF553 /* product.storekit */,
 				E38D37BE2D196F3800A139D6 /* Products */,
+				E3C0D6F62D7AE0CF0094D4D1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -337,6 +341,14 @@
 				E36878C82D209A1F00D5B8C3 /* SuccessOrWrongView.swift */,
 			);
 			path = SuccessfullyOrNotSeccessfullyController;
+			sourceTree = "<group>";
+		};
+		E3C0D6F62D7AE0CF0094D4D1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E3C0D6F72D7AE0CF0094D4D1 /* StoreKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		E3E87A642D1D7310009E9B8C /* ProfileView */ = {
