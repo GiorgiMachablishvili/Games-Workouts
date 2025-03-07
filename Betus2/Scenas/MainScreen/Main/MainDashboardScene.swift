@@ -189,7 +189,8 @@ class MainDashboardScene: UIViewController {
         topView.historyButton.isHidden = isGuestUser
         topView.numberOfWorkoutDays.isHidden = isGuestUser
 //        warningView.isHidden = isGuestUser
-        bottomView.startButton.isHidden = isGuestUser
+        //TODO: un comment
+//        bottomView.startButton.isHidden = isGuestUser
     }
 
     private func updateGoToProButton() {
