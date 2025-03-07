@@ -13,10 +13,10 @@ class SubscriptionMainViewController: UIViewController {
 
     private var selectedSubscriptionType: SubscriptionType? = nil
 
-//    enum Product: String, CaseIterable {
-//        case monthly = "subscription.monthly"
-//        case yearly = "subscription.yearly"
-//    }
+    enum Product: String, CaseIterable {
+        case monthly = "bsu_1499_1year"
+        case yearly = "bsu_199_1month"
+    }
 
     private lazy var tennisBackground: UIImageView = {
         let view = UIImageView(frame: .zero)
@@ -210,12 +210,12 @@ class SubscriptionMainViewController: UIViewController {
             selectedView: subscriptionView.yearlySubscription,
             deselectedView: subscriptionView.monthlySubscription
         )
-//        if SKPaymentQueue.canMakePayments() {
-//            let set : Set<String> = [Product.yearly.rawValue]
-//            let productRequest = SKProductsRequest(productIdentifiers: set)
-//            productRequest.delegate = self
-//            productRequest.start()
-//        }
+        if SKPaymentQueue.canMakePayments() {
+            let set : Set<String> = [Product.yearly.rawValue]
+            let productRequest = SKProductsRequest(productIdentifiers: set)
+            productRequest.delegate = self
+            productRequest.start()
+        }
     }
 
     @objc private func didTapMonthlySubscription() {
@@ -225,12 +225,12 @@ class SubscriptionMainViewController: UIViewController {
             selectedView: subscriptionView.monthlySubscription,
             deselectedView: subscriptionView.yearlySubscription
         )
-//        if SKPaymentQueue.canMakePayments() {
-//            let set : Set<String> = [Product.monthly.rawValue]
-//            let productRequest = SKProductsRequest(productIdentifiers: set)
-//            productRequest.delegate = self
-//            productRequest.start()
-//        }
+        if SKPaymentQueue.canMakePayments() {
+            let set : Set<String> = [Product.monthly.rawValue]
+            let productRequest = SKProductsRequest(productIdentifiers: set)
+            productRequest.delegate = self
+            productRequest.start()
+        }
     }
 
     private func updateSubscriptionSelection(selectedView: UIView, deselectedView: UIView) {
@@ -321,41 +321,41 @@ class SubscriptionMainViewController: UIViewController {
 }
 
 
-//extension SubscriptionMainViewController: SKProductsRequestDelegate, SKPaymentTransactionObserver {
-//    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-//        if let oProduct = response.products.first {
-//            print("Product is available!")
-//            self.purchase(aproduct: oProduct)
-//        } else {
-//            print("Product is not available!")
-//        }
-//    }
-//    
-//    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-//
-//        for transaction in transactions {
-//            switch transaction.transactionState {
-//            case .purchasing:
-//                print("CCustomer is in process of purchase")
-//            case .purchased:
-//                SKPaymentQueue.default().finishTransaction(transaction)
-//                print("purchased")
-//            case .failed:
-//                SKPaymentQueue.default().finishTransaction(transaction)
-//                print("failed")
-//            case .restored:
-//                print("restore")
-//            case .deferred:
-//                print("deferred")
-//            default: break
-//            }
-//        }
-//    }
-//    
-//    func purchase(aproduct: SKProduct) {
-//        let payment = SKPayment(product: aproduct)
-//        SKPaymentQueue.default().add(self)
-//        SKPaymentQueue.default().add(payment)
-//    }
-//
-//}
+extension SubscriptionMainViewController: SKProductsRequestDelegate, SKPaymentTransactionObserver {
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        if let oProduct = response.products.first {
+            print("Product is available!")
+            self.purchase(aproduct: oProduct)
+        } else {
+            print("Product is not available!")
+        }
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .purchasing:
+                print("CCustomer is in process of purchase")
+            case .purchased:
+                SKPaymentQueue.default().finishTransaction(transaction)
+                print("purchased")
+            case .failed:
+                SKPaymentQueue.default().finishTransaction(transaction)
+                print("failed")
+            case .restored:
+                print("restore")
+            case .deferred:
+                print("deferred")
+            default: break
+            }
+        }
+    }
+    
+    func purchase(aproduct: SKProduct) {
+        let payment = SKPayment(product: aproduct)
+        SKPaymentQueue.default().add(self)
+        SKPaymentQueue.default().add(payment)
+    }
+
+}
