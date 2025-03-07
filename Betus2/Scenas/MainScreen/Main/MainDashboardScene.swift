@@ -5,17 +5,19 @@ import SnapKit
 
 //@available(iOS 15.0, *)
 class MainDashboardScene: UIViewController {
-    private var isSubscribed: Bool = false {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
+    //    private var isSubscribed: Bool = false {
+    //        didSet {
+    //            collectionView.reloadData()
+    //        }
+    //    }
 
     private let allSports = ["", "tennis", "basketball", "volleyball", "soccer", ""]
 
-    private var images: [String] {
-        return isSubscribed ? allSports : ["", "soccer", "tennis", "basketball", "volleyball", ""]
-    }
+    //    private var images: [String] {
+    //        return isSubscribed ? allSports : ["", "soccer", "tennis", "basketball", "volleyball", ""]
+    //    }
+
+    private var images = ["", "soccer", "tennis", "basketball", "volleyball", ""]
 
 
     private lazy var warningView: WarningView = {
@@ -87,7 +89,7 @@ class MainDashboardScene: UIViewController {
         setup()
         setupConstraints()
         hiddenOrUnhidden()
-        fetchSubscriptionStatus()
+        //        fetchSubscriptionStatus()
         //        updateBackground()
 
         DispatchQueue.main.async {
@@ -142,28 +144,28 @@ class MainDashboardScene: UIViewController {
         }
     }
 
-    private func fetchSubscriptionStatus() {
-        Task {
-            let storeVM = StoreVM()
-            await storeVM.updateCustomerProductStatus()
-            DispatchQueue.main.async {
-                self.isSubscribed = storeVM.purchasedSubscriptions.isEmpty
-                self.collectionView.reloadData()
-            }
-        }
-    }
+    //    private func fetchSubscriptionStatus() {
+    //        Task {
+    //            let storeVM = StoreVM()
+    //            await storeVM.updateCustomerProductStatus()
+    //            DispatchQueue.main.async {
+    //                self.isSubscribed = storeVM.purchasedSubscriptions.isEmpty
+    //                self.collectionView.reloadData()
+    //            }
+    //        }
+    //    }
 
     private func updateViewForSport(at indexPath: IndexPath) {
-        guard !images[indexPath.item].isEmpty else { return }
+        guard !allSports[indexPath.item].isEmpty else { return }
 
-        let sportName = images[indexPath.item].lowercased()
+        let sportName = allSports[indexPath.item].lowercased()
 
         // Ensure only "soccer" is displayed when not subscribed
-//        if !isSubscribed && sportName != "soccer" {
-//            sportLabel.text = "SOCCER"
-//        } else {
-//            sportLabel.text = sportName.uppercased()
-//        }
+        //        if !isSubscribed && sportName != "soccer" {
+        //            sportLabel.text = "SOCCER"
+        //        } else {
+        //            sportLabel.text = sportName.uppercased()
+        //        }
 
         topView.titleLabel.attributedText = topView.makeTopViewAttributedString(for: sportLabel.text ?? "")
         updateBottomView(for: sportName)
@@ -188,13 +190,13 @@ class MainDashboardScene: UIViewController {
         let isGuestUser = UserDefaults.standard.bool(forKey: "isGuestUser")
         topView.historyButton.isHidden = isGuestUser
         topView.numberOfWorkoutDays.isHidden = isGuestUser
-//        warningView.isHidden = isGuestUser
+        //        warningView.isHidden = isGuestUser
         //TODO: un comment
-//        bottomView.startButton.isHidden = isGuestUser
+        //        bottomView.startButton.isHidden = isGuestUser
     }
 
     private func updateGoToProButton() {
-        bottomView.startButton.setTitle("Go to pro ", for: .normal)
+        bottomView.startButton.setTitle("Locked", for: .normal)
         bottomView.startButton.setTitleColor(UIColor.whiteColor, for: .normal)
         bottomView.startButton.titleLabel?.font = UIFont.goldmanRegular(size: 14)
         bottomView.startButton.backgroundColor = UIColor.redColor
@@ -213,6 +215,7 @@ class MainDashboardScene: UIViewController {
         bottomView.startButton.snp.updateConstraints { make in
             make.width.equalTo(123 * Constraint.xCoeff)
         }
+        
     }
 
     private func updateStartButton() {
@@ -283,16 +286,16 @@ class MainDashboardScene: UIViewController {
 //@available(iOS 15.0, *)
 extension MainDashboardScene: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return allSports.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SportImagesCell", for: indexPath) as? SportImagesCell else {
             return UICollectionViewCell()
         }
-        let sportName = images[indexPath.item]
-        let isLocked = isSubscribed && (sportName != "soccer" && !sportName.isEmpty)
-        cell.configure(with: sportName, isLocked: isLocked)
+        let sportName = allSports[indexPath.item]
+        //        let isLocked = isSubscribed && (sportName != "soccer" && !sportName.isEmpty)
+        cell.configure(with: sportName)
         return cell
     }
 
@@ -303,11 +306,11 @@ extension MainDashboardScene: UICollectionViewDelegate, UICollectionViewDataSour
         let targetX = targetContentOffset.pointee.x
         let targetIndex = round(targetX / itemWidth)
 
-        let clampedIndex = max(0, min(CGFloat(images.count - 1), targetIndex))
+        let clampedIndex = max(0, min(CGFloat(allSports.count - 1), targetIndex))
         targetContentOffset.pointee = CGPoint(x: clampedIndex * itemWidth, y: 0)
 
         let indexPath = IndexPath(item: Int(clampedIndex), section: 0)
-        let sportName = images[indexPath.item]
+        let sportName = allSports[indexPath.item]
         sportLabel.text = sportName.uppercased()
         updateBottomView(for: sportName)
     }
@@ -339,11 +342,11 @@ extension MainDashboardScene: UICollectionViewDelegate, UICollectionViewDataSour
                 sportCell.backgroundBackView.backgroundColor = UIColor.redColor.withAlphaComponent(0.2)
                 sportCell.imageBackgroundColor.backgroundColor = UIColor.redColor
                 //                sportCell.imageDarkBackgroundColor.backgroundColor = .clear
-                if !images[indexPath.item].isEmpty {
-                    let sportName = images[indexPath.item].uppercased()
+                if !allSports[indexPath.item].isEmpty {
+                    let sportName = allSports[indexPath.item].uppercased()
                     sportLabel.text = sportName
                     topView.titleLabel.attributedText = topView.makeTopViewAttributedString(for: sportName)
-                    updateBottomView(for: images[indexPath.item])
+                    updateBottomView(for: allSports[indexPath.item])
                 }
             } else {
                 sportCell.backgroundBackView.backgroundColor = .clear
@@ -353,11 +356,13 @@ extension MainDashboardScene: UICollectionViewDelegate, UICollectionViewDataSour
 
         //MARK: hide or unhide locked image
         if let closestIndexPath = closestIndexPath {
-            let sportName = images[closestIndexPath.item].lowercased()
+            let sportName = allSports[closestIndexPath.item].lowercased()
             sportLabel.text = sportName.uppercased()
             updateBottomView(for: sportName)
 
-            if !isSubscribed && (sportName == "tennis" || sportName == "basketball" || sportName == "volleyball") {
+            let isUserSignedIn = UserDefaults.standard.string(forKey: "userId")?.isEmpty == false
+
+            if !isUserSignedIn && (sportName == "tennis" || sportName == "basketball" || sportName == "volleyball") {
                 if let cell = collectionView.cellForItem(at: closestIndexPath) as? SportImagesCell {
                     cell.lockedImage.isHidden = false
                     cell.backgroundBackView.isHidden = true
@@ -383,14 +388,14 @@ extension MainDashboardScene: BottomViewDelegate {
             workoutTimeView.selectedSport = sportLabel.text
             navigationController?.pushViewController(workoutTimeView, animated: false)
         } else {
-            if let currentTopVC = navigationController?.topViewController,
-               currentTopVC is SubscriptionMainViewController {
-                // Prevent duplicate pushes to SubscriptionMainViewController
-                return
-            }
-
-            let subscriptionVC = SubscriptionMainViewController()
-            navigationController?.pushViewController(subscriptionVC, animated: true)
+//            if let currentTopVC = navigationController?.topViewController,
+//               currentTopVC is SubscriptionMainViewController {
+//                // Prevent duplicate pushes to SubscriptionMainViewController
+//                return
+//            }
+//
+//            let subscriptionVC = SubscriptionMainViewController()
+//            navigationController?.pushViewController(subscriptionVC, animated: true)
         }
     }
 }

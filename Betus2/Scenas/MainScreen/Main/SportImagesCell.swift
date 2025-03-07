@@ -72,8 +72,8 @@ class SportImagesCell: UICollectionViewCell {
         }
     }
 
-    func configure(with imageName: String, isLocked: Bool) {
+    func configure(with imageName: String/*, isLocked: Bool*/) {
         sportImage.image = UIImage(named: imageName)
-        lockedImage.isHidden = !isLocked
+//        lockedImage.isHidden = !isLocked
     }
 }

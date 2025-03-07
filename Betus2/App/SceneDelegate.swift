@@ -13,8 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
 //        let mainViewController = SubscriptionMainViewController()
 //        window?.rootViewController = UINavigationController(rootViewController: mainViewController)
-        decideInitialViewController()
-//        ifUserISCreatedOrNot()
+//        decideInitialViewController()
+        ifUserISCreatedOrNot()
         window?.makeKeyAndVisible()
 
 
@@ -28,6 +28,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     }
 
+    func ifUserISCreatedOrNot() {
+        let isUserSignedIn = UserDefaults.standard.string(forKey: "userId")?.isEmpty == false
+
+        if isUserSignedIn {
+            print("✅ User is signed in: \(UserDefaults.standard.string(forKey: "userId") ?? "")")
+            let mainViewController = MainDashboardScene()
+            UserDefaults.standard.setValue(false, forKey: "isGuestUser")
+            window?.rootViewController = UINavigationController(rootViewController: mainViewController)
+        } else {
+            print("🚀 User is NOT signed in, redirecting to SignInController")
+            let signInViewController = SignInController()
+            window?.rootViewController = UINavigationController(rootViewController: signInViewController)
+        }
+    }
+
+
 //        func ifUserISCreatedOrNot() {
 //            if let userId = UserDefaults.standard.string(forKey: "userId"), !userId.isEmpty {
 //                print(userId)
@@ -40,35 +56,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            }
 //        }
 
-    private func decideInitialViewController() {
-        let isUserSignedIn = UserDefaults.standard.string(forKey: "userId")?.isEmpty == false
-        let isSubscribed = UserDefaults.standard.bool(forKey: "isSubscribed")
+//    private func decideInitialViewController() {
+//        let isUserSignedIn = UserDefaults.standard.string(forKey: "userId")?.isEmpty == false
+//        let isSubscribed = UserDefaults.standard.bool(forKey: "isSubscribed")
+//
+//        if isSubscribed {
+//            if isUserSignedIn {
+//                // ✅ User is subscribed and signed in → go to MainDashboardScene
+//                let mainViewController = MainDashboardScene()
+//                window?.rootViewController = UINavigationController(rootViewController: mainViewController)
+//            } else {
+//                // 🔹 User is subscribed but not signed in → go to SignInController
+//                let signInViewController = SignInController()
+//                window?.rootViewController = UINavigationController(rootViewController: signInViewController)
+//            }
+//        } else {
+//            // ❌ User is NOT subscribed → go to SubscriptionMainViewController
+//            let subscriptionViewController = SubscriptionMainViewController()
+//            window?.rootViewController = UINavigationController(rootViewController: subscriptionViewController)
+//        }
+//    }
 
-        if isSubscribed {
-            if isUserSignedIn {
-                // ✅ User is subscribed and signed in → go to MainDashboardScene
-                let mainViewController = MainDashboardScene()
-                window?.rootViewController = UINavigationController(rootViewController: mainViewController)
-            } else {
-                // 🔹 User is subscribed but not signed in → go to SignInController
-                let signInViewController = SignInController()
-                window?.rootViewController = UINavigationController(rootViewController: signInViewController)
-            }
-        } else {
-            // ❌ User is NOT subscribed → go to SubscriptionMainViewController
-            let subscriptionViewController = SubscriptionMainViewController()
-            window?.rootViewController = UINavigationController(rootViewController: subscriptionViewController)
-        }
-    }
-
-    func sceneDidDisconnect(_ scene: UIScene) {
-        Task {
-            await storeVM.updateCustomerProductStatus()
-            DispatchQueue.main.async {
-                self.decideInitialViewController()
-            }
-        }
-    }
+//    func sceneDidDisconnect(_ scene: UIScene) {
+//        Task {
+//            await storeVM.updateCustomerProductStatus()
+//            DispatchQueue.main.async {
+//                self.decideInitialViewController()
+//            }
+//        }
+//    }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
@@ -80,14 +96,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This may occur due to temporary interruptions (ex. an incoming phone call).
     }
     
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        Task {
-            await storeVM.updateCustomerProductStatus()
-            DispatchQueue.main.async {
-                self.decideInitialViewController()
-            }
-        }
-    }
+//    func sceneWillEnterForeground(_ scene: UIScene) {
+//        Task {
+//            await storeVM.updateCustomerProductStatus()
+//            DispatchQueue.main.async {
+//                self.decideInitialViewController()
+//            }
+//        }
+//    }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Called as the scene transitions from the foreground to the background.
