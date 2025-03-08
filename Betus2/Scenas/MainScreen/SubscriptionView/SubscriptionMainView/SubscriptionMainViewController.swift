@@ -269,20 +269,20 @@ class SubscriptionMainViewController: UIViewController {
         let productID = subscriptionType == .yearly ? "bsu_1499_1year" : "bsu_199_1month"
         print("🚀 Starting Subscription for \(productID)")
 
-//        Task {
-//            if let product = storeVM.subscriptions.first(where: { $0.id == productID }) {
-//                do {
-//                    let transaction = try await storeVM.purchase(product)
-//                    let success = transaction != nil
-//                    print(success ? "🎉 Subscription Successful!" : "❌ Subscription Failed")
-//
-//                    moveSuccsOrNotView(isSuccess: success)
-//                } catch {
-//                    print("❌ Subscription Error: \(error)")
-//                    moveSuccsOrNotView(isSuccess: false)
-//                }
-//            }
-//        }
+        Task {
+            if let product = storeVM.subscriptions.first(where: { $0.id == productID }) {
+                do {
+                    let transaction = try await storeVM.purchase(product)
+                    let success = transaction != nil
+                    print(success ? "🎉 Subscription Successful!" : "❌ Subscription Failed")
+
+                    moveSuccsOrNotView(isSuccess: success)
+                } catch {
+                    print("❌ Subscription Error: \(error)")
+                    moveSuccsOrNotView(isSuccess: false)
+                }
+            }
+        }
 
         Task {
             print("✅ Inside Task block") // Debugging
