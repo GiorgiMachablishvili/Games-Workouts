@@ -272,6 +272,8 @@ class SignInController: UIViewController {
             "is_pro": isProOrNot
         ]
 
+        print("it is betus parameters: \(parameters)")
+
         NetworkManager.shared.post(
             url: String.userCreate(),
             parameters: parameters,
@@ -281,9 +283,8 @@ class SignInController: UIViewController {
 
             DispatchQueue.main.async {
                 NetworkManager.shared.showProgressHud(false, animated: false)
-                UserDefaults.standard.setValue(false, forKey: "isGuestUser")
+//                UserDefaults.standard.setValue(false, forKey: "isGuestUser")
             }
-
             switch result {
             case .success(let userInfo):
                 DispatchQueue.main.async {

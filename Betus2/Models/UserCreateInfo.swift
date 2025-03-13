@@ -16,4 +16,13 @@ public struct UserCreateInfo: Codable {
         case createdAt = "created_at"
         case isPro = "is_pro"
     }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        appleToken = try container.decode(String.self, forKey: .appleToken)
+        pushToken = try container.decode(String.self, forKey: .pushToken)
+        createdAt = try container.decode(String.self, forKey: .createdAt)
+        isPro = try container.decodeIfPresent(Bool.self, forKey: .isPro) ?? false 
+    }
 }
