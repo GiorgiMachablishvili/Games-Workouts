@@ -225,7 +225,6 @@ class SignInController: UIViewController {
 
     }
 
-    //TODO: add links
     @objc private func clickTermsButton() {
         let termsURL = "https://beat-sports.pro/terms"
         let webViewController = WebViewController(urlString: termsURL)

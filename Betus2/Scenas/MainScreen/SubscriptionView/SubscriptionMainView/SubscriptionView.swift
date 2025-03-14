@@ -282,7 +282,6 @@ extension SubscriptionView: UITextViewDelegate {
         return false
     }
 
-    //TODO: add links
     private func openTermsOfUse() {
         didPressTermsOfUser?()
     }

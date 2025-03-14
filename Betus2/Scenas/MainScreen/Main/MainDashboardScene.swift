@@ -185,7 +185,6 @@ class MainDashboardScene: UIViewController {
         navigationController?.pushViewController(historyVC, animated: true)
     }
 
-    //TODO: make button hidden if user is as guest update all
     private func hiddenOrUnhidden() {
         let isGuestUser = UserDefaults.standard.bool(forKey: "isGuestUser")
         topView.historyButton.isHidden = isGuestUser
