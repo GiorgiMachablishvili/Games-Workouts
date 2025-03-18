@@ -21,6 +21,7 @@ class SportImagesCell: UICollectionViewCell {
 
     lazy var sportImage: UIImageView = {
         let view = UIImageView(frame: .zero)
+        view.tintColor = .gray
         view.contentMode = .scaleToFill
         return view
     }()

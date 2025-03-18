@@ -242,6 +242,7 @@
 				E38D37DA2D196FDA00A139D6 /* Extention */,
 				E38D37DB2D196FED00A139D6 /* Fonts */,
 				E38D37C92D196F3B00A139D6 /* Assets.xcassets */,
+				E396AD8E2D89909400383F6F /* New Group */,
 				E38D37CB2D196F3B00A139D6 /* LaunchScreen.storyboard */,
 				E38D37CE2D196F3B00A139D6 /* Info.plist */,
 			);
@@ -311,6 +312,13 @@
 				E38D37F32D19743E00A139D6 /* Goldman-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		E396AD8E2D89909400383F6F /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		E3A868362D20407000DC3560 /* SubscriptionView */ = {

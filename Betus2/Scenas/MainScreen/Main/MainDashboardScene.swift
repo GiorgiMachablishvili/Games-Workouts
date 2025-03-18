@@ -11,7 +11,7 @@ class MainDashboardScene: UIViewController {
     //        }
     //    }
 
-    private let allSports = ["", "tennis", "basketball", "volleyball", "soccer", ""]
+    private let allSports = ["", "tennis", "basketball", "volleyball", "soccer", "americanFootball", "badminton", "baseball", "rugby", "boxing", "cycling", "golf", "gymnastics", "iceHockey", "lacrosse", "mma", "run", "rowing", "running", "swimming", "tableTennis", ""]
 
     //    private var images: [String] {
     //        return isSubscribed ? allSports : ["", "soccer", "tennis", "basketball", "volleyball", ""]
@@ -214,7 +214,7 @@ class MainDashboardScene: UIViewController {
         bottomView.startButton.snp.updateConstraints { make in
             make.width.equalTo(123 * Constraint.xCoeff)
         }
-        
+
     }
 
     private func updateStartButton() {
@@ -242,35 +242,167 @@ class MainDashboardScene: UIViewController {
     private func updateBottomView(for sport: String) {
         let bottomViewInfo: ViewInfo
 
+//         "", "", "", "", "", "", "", "", "", "", "", "", "", "pullUpBar", "", "running", "", "", ""] "track&field(sprinting)", "wrestling"
+
         switch sport.lowercased() {
         case "tennis":
             bottomViewInfo = ViewInfo(
                 title: "Daily tennis workout",
                 description: """
-                Daily tennis training: improve your coordination, form and skill on the court. Increase your reaction, strength and flexibility with every training session.
-                """,
+                        Daily tennis training: improve your coordination, form and skill on the court. Increase your reaction, strength, and flexibility with every training session.
+                        """,
                 timer: "25"
             )
         case "basketball":
             bottomViewInfo = ViewInfo(
                 title: "Daily basketball workout",
                 description: """
-                Daily basketball training: improve your coordination, endurance and skill in the game. Develop reaction, speed and flexibility on the court with every exercise.
-                """,
+                        Daily basketball training: improve your coordination, endurance, and skill in the game. Develop reaction, speed, and flexibility on the court with every exercise.
+                        """,
                 timer: "30"
             )
         case "volleyball":
             bottomViewInfo = ViewInfo(
                 title: "Daily volleyball workout",
                 description: """
-                Daily volleyball training: improve your technique, endurance and sense of play. Improve your reaction, speed and flexibility on the court with every exercise.
-                """,
+                        Daily volleyball training: improve your technique, endurance, and sense of play. Enhance your reaction, speed, and flexibility on the court with every exercise.
+                        """,
                 timer: "27"
             )
         case "soccer":
             bottomViewInfo = ViewInfo(
                 title: "Daily soccer workout",
-                description: "Daily soccer training: develop coordination, endurance and technique. Improve your reaction, speed and flexibility on the pitch with every exercise",
+                description: """
+                        Daily soccer training: develop coordination, endurance, and technique. Improve your reaction, speed, and flexibility on the pitch with every session.
+                        """,
+                timer: "30"
+            )
+        case "baseball":
+            bottomViewInfo = ViewInfo(
+                title: "Daily baseball workout",
+                description: """
+                        Daily baseball training: strengthen your batting, throwing, and fielding skills. Enhance your reaction, speed, and agility for better performance on the field.
+                        """,
+                timer: "28"
+            )
+        case "swimming":
+            bottomViewInfo = ViewInfo(
+                title: "Daily swimming workout",
+                description: """
+                        Daily swimming practice: improve your endurance, stroke efficiency, and breath control. Develop strength, speed, and flexibility in the water.
+                        """,
+                timer: "35"
+            )
+        case "americanfootball":
+            bottomViewInfo = ViewInfo(
+                title: "Daily American football workout",
+                description: """
+                        Daily American football training: boost your strength, agility, and tackling skills. Improve reaction time, endurance, and strategic thinking on the field.
+                        """,
+                timer: "40"
+            )
+        case "cycling":
+            bottomViewInfo = ViewInfo(
+                title: "Daily cycling workout",
+                description: """
+                        Daily cycling routine: enhance endurance, pedaling technique, and hill-climbing skills. Build lower body strength and cardiovascular fitness.
+                        """,
+                timer: "45"
+            )
+        case "boxing":
+            bottomViewInfo = ViewInfo(
+                title: "Daily boxing workout",
+                description: """
+                        Daily boxing training: develop punching power, speed, and defensive techniques. Improve reaction time, endurance, and overall body conditioning.
+                        """,
+                timer: "30"
+            )
+        case "golf":
+            bottomViewInfo = ViewInfo(
+                title: "Daily golf workout",
+                description: """
+                        Daily golf training: improve swing consistency, putting accuracy, and overall control. Enhance focus, coordination, and core strength.
+                        """,
+                timer: "25"
+            )
+        case "run":
+            bottomViewInfo = ViewInfo(
+                title: "Daily sprinting workout",
+                description: """
+                        Daily sprint training: increase acceleration, top speed, and running mechanics. Improve agility, reaction time, and endurance for better performance.
+                        """,
+                timer: "35"
+            )
+        case "mexican":
+            bottomViewInfo = ViewInfo(
+                title: "Daily wrestling workout",
+                description: """
+                        Daily wrestling practice: enhance grappling techniques, strength, and endurance. Develop flexibility, reaction time, and overall combat readiness.
+                        """,
+                timer: "40"
+            )
+        case "gymnastics":
+            bottomViewInfo = ViewInfo(
+                title: "Daily gymnastics workout",
+                description: """
+                        Daily gymnastics training: improve flexibility, core strength, and body control. Enhance balance, coordination, and aerial awareness for better routines.
+                        """,
+                timer: "50"
+            )
+        case "tabletennis":
+            bottomViewInfo = ViewInfo(
+                title: "Daily table tennis workout",
+                description: """
+                        Daily table tennis practice: enhance hand-eye coordination, reaction speed, and precision. Improve footwork, spin control, and strategic play.
+                        """,
+                timer: "30"
+            )
+        case "icehockey":
+            bottomViewInfo = ViewInfo(
+                title: "Daily ice hockey workout",
+                description: """
+                        Daily ice hockey training: strengthen skating technique, puck control, and shooting accuracy. Develop endurance, reaction time, and agility on the ice.
+                        """,
+                timer: "35"
+            )
+        case "rugby":
+            bottomViewInfo = ViewInfo(
+                title: "Daily rugby workout",
+                description: """
+                        Daily rugby training: build strength, tackling technique, and passing accuracy. Improve agility, endurance, and strategic gameplay.
+                        """,
+                timer: "45"
+            )
+        case "mma":
+            bottomViewInfo = ViewInfo(
+                title: "Daily MMA workout",
+                description: """
+                        Daily MMA training: develop striking, grappling, and defensive skills. Enhance speed, flexibility, and endurance for peak combat performance.
+                        """,
+                timer: "50"
+            )
+        case "rowing":
+            bottomViewInfo = ViewInfo(
+                title: "Daily rowing workout",
+                description: """
+                        Daily rowing training: improve stroke efficiency, endurance, and upper body strength. Enhance cardiovascular fitness and core stability.
+                        """,
+                timer: "40"
+            )
+        case "lacrosse":
+            bottomViewInfo = ViewInfo(
+                title: "Daily lacrosse workout",
+                description: """
+                        Daily lacrosse training: refine stick handling, passing, and shooting techniques. Improve agility, reaction speed, and field awareness.
+                        """,
+                timer: "35"
+            )
+        case "badminton":
+            bottomViewInfo = ViewInfo(
+                title: "Daily badminton workout",
+                description: """
+                        Daily badminton practice: enhance shuttle control, footwork, and reaction time. Develop precision, speed, and endurance for competitive play.
+                        """,
                 timer: "30"
             )
 
@@ -387,14 +519,14 @@ extension MainDashboardScene: BottomViewDelegate {
             workoutTimeView.selectedSport = sportLabel.text
             navigationController?.pushViewController(workoutTimeView, animated: false)
         } else {
-//            if let currentTopVC = navigationController?.topViewController,
-//               currentTopVC is SubscriptionMainViewController {
-//                // Prevent duplicate pushes to SubscriptionMainViewController
-//                return
-//            }
-//
-//            let subscriptionVC = SubscriptionMainViewController()
-//            navigationController?.pushViewController(subscriptionVC, animated: true)
+            //            if let currentTopVC = navigationController?.topViewController,
+            //               currentTopVC is SubscriptionMainViewController {
+            //                // Prevent duplicate pushes to SubscriptionMainViewController
+            //                return
+            //            }
+            //
+            //            let subscriptionVC = SubscriptionMainViewController()
+            //            navigationController?.pushViewController(subscriptionVC, animated: true)
         }
     }
 }
