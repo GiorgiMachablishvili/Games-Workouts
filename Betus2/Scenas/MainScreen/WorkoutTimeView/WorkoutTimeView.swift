@@ -184,7 +184,7 @@ class WorkoutTimeView: UIViewController {
                 setupBaseballWorkoutSteps()
             case "SWIMMING":
                 setupSwimmingWorkoutSteps()
-            case "AMERICAN FOOTBALL":
+            case "AMERICANFOOTBALL":
                 setupAmericanFootballWorkoutSteps()
             case "CYCLING":
                 setupCyclingWorkoutSteps()
@@ -192,15 +192,15 @@ class WorkoutTimeView: UIViewController {
                 setupBoxingWorkoutSteps()
             case "GOLF":
                 setupGolfWorkoutSteps()
-            case "RUN":
+            case "RUNNING":
                 setupRunWorkoutSteps()
             case "WRESTLING":
                 setupWrestlingWorkoutSteps()
             case "GYMNASTICS":
                 setupGymnasticsWorkoutSteps()
-            case "TABLE TENNIS":
+            case "TABLETENNIS":
                 setupTableTennisWorkoutSteps()
-            case "ICE HOCKEY":
+            case "ICEHOCKEY":
                 setupIceHockeyWorkoutSteps()
             case "RUGBY":
                 setupRugbyWorkoutSteps()
@@ -695,6 +695,22 @@ class WorkoutTimeView: UIViewController {
         var basketballWorkoutCount = 0
         var volleyballWorkoutCount = 0
         var tennisWorkoutCount = 0
+        var americanFootballWorkoutCount = 0
+        var badmintonWorkoutCount = 0
+        var baseballWorkoutCount = 0
+        var rugbyWorkoutCount = 0
+        var boxingWorkoutCount = 0
+        var cyclingWorkoutCount = 0
+        var golfWorkoutCount = 0
+        var gymnasticsWorkoutCount = 0
+        var iceHockeyWorkoutCount = 0
+        var lacrosseWorkoutCount = 0
+        var mmaWorkoutCount = 0
+        var wrestlingWorkoutCount = 0
+        var rowingWorkoutCount = 0
+        var runningWorkoutCount = 0
+        var swimmingWorkoutCount = 0
+        var tableTennisWorkoutCount = 0
 
         // Increment the count based on the sport
         switch sport {
@@ -706,6 +722,38 @@ class WorkoutTimeView: UIViewController {
             volleyballWorkoutCount += 1
         case "tennis":
             tennisWorkoutCount += 1
+        case "americanFootball":
+            americanFootballWorkoutCount += 1
+        case "badminton":
+            badmintonWorkoutCount += 1
+        case "baseball":
+            baseballWorkoutCount += 1
+        case "rugby":
+            rugbyWorkoutCount += 1
+        case "boxing":
+            boxingWorkoutCount += 1
+        case "cycling":
+            cyclingWorkoutCount += 1
+        case "golf":
+            golfWorkoutCount += 1
+        case "gymnastics":
+            gymnasticsWorkoutCount += 1
+        case "iceHockey":
+            iceHockeyWorkoutCount += 1
+        case "lacrosse":
+            lacrosseWorkoutCount += 1
+        case "mma":
+            mmaWorkoutCount += 1
+        case "wrestling":
+            wrestlingWorkoutCount += 1
+        case "rowing":
+            rowingWorkoutCount += 1
+        case "running":
+            runningWorkoutCount += 1
+        case "swimming":
+            swimmingWorkoutCount += 1
+        case "tableTennis":
+            tableTennisWorkoutCount += 1
         default:
             break
         }
@@ -717,6 +765,22 @@ class WorkoutTimeView: UIViewController {
             basketballWorkoutCount: basketballWorkoutCount,
             volleyballWorkoutCount: volleyballWorkoutCount,
             tennisWorkoutCount: tennisWorkoutCount,
+            americanFootballWorkoutCount: americanFootballWorkoutCount,
+            badmintonWorkoutCount: badmintonWorkoutCount,
+            baseballWorkoutCount: baseballWorkoutCount,
+            rugbyWorkoutCount: rugbyWorkoutCount,
+            boxingWorkoutCount: boxingWorkoutCount,
+            cyclingWorkoutCount: cyclingWorkoutCount,
+            golfWorkoutCount: golfWorkoutCount,
+            gymnasticsWorkoutCount: gymnasticsWorkoutCount,
+            iceHockeyWorkoutCount: iceHockeyWorkoutCount,
+            lacrosseWorkoutCount: lacrosseWorkoutCount,
+            mmaWorkoutCount: mmaWorkoutCount,
+            wrestlingWorkoutCount: wrestlingWorkoutCount,
+            rowingWorkoutCount: rowingWorkoutCount,
+            runningWorkoutCount: runningWorkoutCount,
+            swimmingWorkoutCount: swimmingWorkoutCount,
+            tableTennisWorkoutCount: tableTennisWorkoutCount,
             workoutTime: currentTimeString
         )
 
@@ -736,6 +800,22 @@ class WorkoutTimeView: UIViewController {
             "basketballWorkoutCount": score.basketballWorkoutCount,
             "volleyballWorkoutCount": score.volleyballWorkoutCount,
             "tennisWorkoutCount": score.tennisWorkoutCount,
+            "americanFootballWorkoutCount": score.americanFootballWorkoutCount,
+            "badmintonWorkoutCount": score.badmintonWorkoutCount,
+            "baseballWorkoutCount": score.baseballWorkoutCount,
+            "rugbyWorkoutCount": score.rugbyWorkoutCount,
+            "boxingWorkoutCount": score.boxingWorkoutCount,
+            "cyclingWorkoutCount": score.cyclingWorkoutCount,
+            "golfWorkoutCount": score.golfWorkoutCount,
+            "gymnasticsWorkoutCount": score.gymnasticsWorkoutCount,
+            "iceHockeyWorkoutCount": score.iceHockeyWorkoutCount,
+            "lacrosseWorkoutCount": score.lacrosseWorkoutCount,
+            "mmaWorkoutCount": score.mmaWorkoutCount,
+            "wrestlingWorkoutCount": score.wrestlingWorkoutCount,
+            "rowingWorkoutCount": score.rowingWorkoutCount,
+            "runningWorkoutCount": score.runningWorkoutCount,
+            "swimmingWorkoutCount": score.swimmingWorkoutCount,
+            "tableTennisWorkoutCount": score.tableTennisWorkoutCount,
             "workout_time": score.workoutTime
         ]
 

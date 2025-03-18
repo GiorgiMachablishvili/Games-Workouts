@@ -3,7 +3,7 @@
 import UIKit
 import SnapKit
 
-class HelperProfileView: UIView {
+class HelperProfileView: UICollectionViewCell {
 
     var rateButton: (() -> Void)?
     var privacyPolicy: (() -> Void)?

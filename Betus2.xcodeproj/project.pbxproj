@@ -45,6 +45,8 @@
 		E38D37F52D19743E00A139D6 /* Goldman-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E38D37F32D19743E00A139D6 /* Goldman-Regular.ttf */; };
 		E38D37F72D19747800A139D6 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E38D37F62D19747800A139D6 /* UIFont+Extension.swift */; };
 		E38D37FA2D19757A00A139D6 /* SVProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = E38D37F92D19757A00A139D6 /* SVProgressHUD */; };
+		E396AD902D89BE0400383F6F /* WorkoutStepsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E396AD8F2D89BE0400383F6F /* WorkoutStepsProvider.swift */; };
+		E396AD922D8A050300383F6F /* WarningAndButtonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E396AD912D8A050300383F6F /* WarningAndButtonsCell.swift */; };
 		E3A868382D2040A500DC3560 /* SubscriptionMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A868372D2040A500DC3560 /* SubscriptionMainViewController.swift */; };
 		E3A8683A2D2048A100DC3560 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A868392D2048A100DC3560 /* SubscriptionView.swift */; };
 		E3A8683C2D20505D00DC3560 /* YearlySubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A8683B2D20505D00DC3560 /* YearlySubscriptionView.swift */; };
@@ -102,6 +104,8 @@
 		E38D37F22D19743E00A139D6 /* Goldman-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Goldman-Bold.ttf"; sourceTree = "<group>"; };
 		E38D37F32D19743E00A139D6 /* Goldman-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Goldman-Regular.ttf"; sourceTree = "<group>"; };
 		E38D37F62D19747800A139D6 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
+		E396AD8F2D89BE0400383F6F /* WorkoutStepsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStepsProvider.swift; sourceTree = "<group>"; };
+		E396AD912D8A050300383F6F /* WarningAndButtonsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WarningAndButtonsCell.swift; path = Betus2/Scenas/MainScreen/WorkoutTimeView/WarningAndButtonsCell.swift; sourceTree = SOURCE_ROOT; };
 		E3A868372D2040A500DC3560 /* SubscriptionMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionMainViewController.swift; sourceTree = "<group>"; };
 		E3A868392D2048A100DC3560 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
 		E3A8683B2D20505D00DC3560 /* YearlySubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearlySubscriptionView.swift; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				E384710A2D1C174300C92887 /* WorkoutTimeView.swift */,
+				E396AD8F2D89BE0400383F6F /* WorkoutStepsProvider.swift */,
 				E384710B2D1C174400C92887 /* WorkoutDescriptionTopView.swift */,
 				E360C4992D1C8EC40094977C /* CompletView.swift */,
 			);
@@ -365,6 +370,7 @@
 				E3E87A652D1D7341009E9B8C /* ProfileViewController.swift */,
 				E3E87A692D1D73F1009E9B8C /* TrainingStaticView.swift */,
 				E3E87A6B2D1D8A4E009E9B8C /* HelperProfileView.swift */,
+				E396AD912D8A050300383F6F /* WarningAndButtonsCell.swift */,
 			);
 			path = ProfileView;
 			sourceTree = "<group>";
@@ -470,6 +476,7 @@
 				E38D37DF2D19732300A139D6 /* NetwokrManager.swift in Sources */,
 				E384710D2D1C174400C92887 /* WorkoutDescriptionTopView.swift in Sources */,
 				E3E87A6E2D1D9920009E9B8C /* WarningView.swift in Sources */,
+				E396AD922D8A050300383F6F /* WarningAndButtonsCell.swift in Sources */,
 				E349F7442D356079006AFB0C /* WorkoutDayCountInRow.swift in Sources */,
 				E314053E2D2327F900AAA19C /* WarningViews.swift in Sources */,
 				E38D37F72D19747800A139D6 /* UIFont+Extension.swift in Sources */,
@@ -501,6 +508,7 @@
 				E3A8683A2D2048A100DC3560 /* SubscriptionView.swift in Sources */,
 				E360C49A2D1C8EC40094977C /* CompletView.swift in Sources */,
 				E3E87A6A2D1D73F1009E9B8C /* TrainingStaticView.swift in Sources */,
+				E396AD902D89BE0400383F6F /* WorkoutStepsProvider.swift in Sources */,
 				E3E87A5F2D1D58C1009E9B8C /* CalendarInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

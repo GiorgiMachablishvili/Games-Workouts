@@ -11,7 +11,7 @@ class MainDashboardScene: UIViewController {
     //        }
     //    }
 
-    private let allSports = ["", "tennis", "basketball", "volleyball", "soccer", "americanFootball", "badminton", "baseball", "rugby", "boxing", "cycling", "golf", "gymnastics", "iceHockey", "lacrosse", "mma", "run", "rowing", "running", "swimming", "tableTennis", ""]
+    private let allSports = ["", "tennis", "basketball", "volleyball", "soccer", "americanFootball", "badminton", "baseball", "rugby", "boxing", "cycling", "golf", "gymnastics", "iceHockey", "lacrosse", "mma", "wrestling", "rowing", "running", "swimming", "tableTennis", ""]
 
     //    private var images: [String] {
     //        return isSubscribed ? allSports : ["", "soccer", "tennis", "basketball", "volleyball", ""]
@@ -242,8 +242,6 @@ class MainDashboardScene: UIViewController {
     private func updateBottomView(for sport: String) {
         let bottomViewInfo: ViewInfo
 
-//         "", "", "", "", "", "", "", "", "", "", "", "", "", "pullUpBar", "", "running", "", "", ""] "track&field(sprinting)", "wrestling"
-
         switch sport.lowercased() {
         case "tennis":
             bottomViewInfo = ViewInfo(
@@ -325,7 +323,7 @@ class MainDashboardScene: UIViewController {
                         """,
                 timer: "25"
             )
-        case "run":
+        case "running":
             bottomViewInfo = ViewInfo(
                 title: "Daily sprinting workout",
                 description: """
@@ -333,7 +331,7 @@ class MainDashboardScene: UIViewController {
                         """,
                 timer: "35"
             )
-        case "mexican":
+        case "wrestling":
             bottomViewInfo = ViewInfo(
                 title: "Daily wrestling workout",
                 description: """
@@ -493,7 +491,7 @@ extension MainDashboardScene: UICollectionViewDelegate, UICollectionViewDataSour
 
             let isUserSignedIn = UserDefaults.standard.string(forKey: "userId")?.isEmpty == false
 
-            if !isUserSignedIn && (sportName == "tennis" || sportName == "basketball" || sportName == "volleyball") {
+            if !isUserSignedIn && (sportName == "tennis" || sportName == "basketball" || sportName == "volleyball" || sportName == "americanFootball" || sportName == "rugby" || sportName == "boxing" || sportName == "mma" || sportName == "tableTennis" || sportName == "swimming" || sportName == "iceHockey") {
                 if let cell = collectionView.cellForItem(at: closestIndexPath) as? SportImagesCell {
                     cell.lockedImage.isHidden = false
                     cell.backgroundBackView.isHidden = true
