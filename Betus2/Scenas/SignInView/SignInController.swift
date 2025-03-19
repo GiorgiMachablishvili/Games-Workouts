@@ -238,7 +238,7 @@ class SignInController: UIViewController {
     }
 
     @objc private func clickSignInWithAppleButton() {
-//        let mockPushToken = "mockPushToken"
+        let mockPushToken = "mockPushToken"
 //        let mockAppleToken = "mockAppleToken"
 //
 //        UserDefaults.standard.setValue(mockPushToken, forKey: "PushToken")
@@ -282,7 +282,7 @@ class SignInController: UIViewController {
 
             DispatchQueue.main.async {
                 NetworkManager.shared.showProgressHud(false, animated: false)
-//                UserDefaults.standard.setValue(false, forKey: "isGuestUser")
+                UserDefaults.standard.setValue(false, forKey: "isGuestUser")
             }
             switch result {
             case .success(let userInfo):

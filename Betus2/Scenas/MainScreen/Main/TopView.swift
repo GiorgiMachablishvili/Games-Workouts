@@ -101,7 +101,7 @@ class TopView: UIView {
     }
 
     func makeTopViewAttributedString(for sport: String) -> NSAttributedString {
-        let text = "Consecutive days of \(sport.lowercased())\ntraining"
+        let text = "Consecutive days of \n\(sport.lowercased()) training"
         let attributedString = NSMutableAttributedString(string: text)
 
         let prefixRange = (text as NSString).range(of: "Consecutive days of")

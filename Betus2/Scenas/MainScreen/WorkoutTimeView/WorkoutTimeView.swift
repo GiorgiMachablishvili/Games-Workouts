@@ -722,7 +722,7 @@ class WorkoutTimeView: UIViewController {
             volleyballWorkoutCount += 1
         case "tennis":
             tennisWorkoutCount += 1
-        case "americanFootball":
+        case "americanfootball":
             americanFootballWorkoutCount += 1
         case "badminton":
             badmintonWorkoutCount += 1
@@ -738,7 +738,7 @@ class WorkoutTimeView: UIViewController {
             golfWorkoutCount += 1
         case "gymnastics":
             gymnasticsWorkoutCount += 1
-        case "iceHockey":
+        case "icehockey":
             iceHockeyWorkoutCount += 1
         case "lacrosse":
             lacrosseWorkoutCount += 1
@@ -752,7 +752,7 @@ class WorkoutTimeView: UIViewController {
             runningWorkoutCount += 1
         case "swimming":
             swimmingWorkoutCount += 1
-        case "tableTennis":
+        case "tabletennis":
             tableTennisWorkoutCount += 1
         default:
             break
@@ -818,6 +818,7 @@ class WorkoutTimeView: UIViewController {
             "tableTennisWorkoutCount": score.tableTennisWorkoutCount,
             "workout_time": score.workoutTime
         ]
+        
 
         let url = String.createWorkoutCountsAndDate(userId: userId)
         NetworkManager.shared.showProgressHud(true, animated: true)

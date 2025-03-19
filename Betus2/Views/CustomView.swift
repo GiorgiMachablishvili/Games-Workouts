@@ -50,7 +50,6 @@ class CustomWorkoutsView: UIView {
         titleLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(imageView.snp.trailing).offset(8)
-            make.width.equalTo(100)
         }
 
         pointLabel.snp.makeConstraints { make in
