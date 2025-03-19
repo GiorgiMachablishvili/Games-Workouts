@@ -22,76 +22,13 @@ class ProfileViewController: UIViewController {
         return view
     }()
 
-//    private lazy var staticView: TrainingStaticView = {
-//        let view = TrainingStaticView()
-//        view.makeRoundCorners(32)
-//        view.backgroundColor = .topBottomViewColorGray
-//        view.onBackButtonTap = { [weak self] in
-//            self?.navigationMainDashboard()
-//        }
-//        return view
-//    }()
-
-//    private lazy var helperView: HelperProfileView = {
-//        let view = HelperProfileView()
-//        view.makeRoundCorners(32)
-//        view.backgroundColor = .topBottomViewColorGray
-//        view.rateButton = { [weak self] in
-//            if let windowScene = view.window?.windowScene {
-//                SKStoreReviewController.requestReview(in: windowScene)
-//            }
-//        }
-//        view.privacyPolicy = { [weak self] in
-//            self?.privacyPolicyButton()
-//        }
-//        view.terms = { [weak self] in
-//            self?.termsButton()
-//        }
-//        view.support = { [weak self] in
-//            self?.supportButton()
-//        }
-////        view.restorePurchases = { [weak self] in
-////            self?.restoreUserInfo()
-////        }
-//        return view
-//    }()
-
-//    private lazy var warningViewRed: WarningViews = {
-//        let view = WarningViews()
-//        view.makeRoundCorners(16)
-//        view.backgroundColor = .redColor.withAlphaComponent(0.2)
-//        return view
-//    }()
-//
-//    private lazy var deleteButton: UIButton = {
-//        let view = UIButton(frame: .zero)
-//        view.setTitle("Delete Account", for: .normal)
-//        view.setTitleColor(UIColor.whiteColor, for: .normal)
-//        view.titleLabel?.font = UIFont.goldmanRegular(size: 14)
-//        view.makeRoundCorners(23)
-//        view.backgroundColor = .topBottomViewColorGray
-//        view.addTarget(self, action: #selector(pressDeleteButton), for: .touchUpInside)
-//        return view
-//    }()
-//
-//    private lazy var signInButton: UIButton = {
-//        let view = UIButton(frame: .zero)
-//        view.setTitle("Sing In", for: .normal)
-//        view.setTitleColor(UIColor.whiteColor, for: .normal)
-//        view.titleLabel?.font = UIFont.goldmanRegular(size: 14)
-//        view.makeRoundCorners(23)
-//        view.backgroundColor = .redColor
-//        view.isHidden = true
-//        view.addTarget(self, action: #selector(pressSignInButton), for: .touchUpInside)
-//        return view
-//    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         setupConstraints()
         setupHierarchy()
         configureCompositionLayout()
+
 
         if UserDefaults.standard.bool(forKey: "isGuestUser") {
 //            setupForGuestUser()
@@ -100,7 +37,10 @@ class ProfileViewController: UIViewController {
             fetchWorkoutScore()
         }
 
-        //        hiddenOrUnhidden()
+        // Ensuring hiddenOrUnhidden is executed after UI reload
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.hiddenOrUnhidden()
+        }
     }
 
     private func setup() {
@@ -161,12 +101,12 @@ class ProfileViewController: UIViewController {
     func helperStaticView() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(205 * Constraint.yCoeff))
+            heightDimension: .absolute(215 * Constraint.yCoeff))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(205 * Constraint.yCoeff)
+            heightDimension: .absolute(215 * Constraint.yCoeff)
         )
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
@@ -183,12 +123,12 @@ class ProfileViewController: UIViewController {
     func warningAndButtonView() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(125 * Constraint.yCoeff))
+            heightDimension: .absolute(150 * Constraint.yCoeff))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(125 * Constraint.yCoeff)
+            heightDimension: .absolute(150 * Constraint.yCoeff)
         )
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
 
@@ -196,7 +136,7 @@ class ProfileViewController: UIViewController {
         section.contentInsets = .init(
             top: 20 * Constraint.yCoeff,
             leading: 0 * Constraint.xCoeff,
-            bottom: 200 * Constraint.yCoeff,
+            bottom: 50 * Constraint.yCoeff,
             trailing: 0 * Constraint.xCoeff
         )
         return section
@@ -221,60 +161,18 @@ class ProfileViewController: UIViewController {
         return section
     }
 
-//    private func setupForGuestUser() {
-//        if let soccerLabel = staticView.soccerView.viewWithTag(1001) as? UILabel,
-//           let basketballLabel = staticView.basketballView.viewWithTag(1001) as? UILabel,
-//           let volleyballLabel = staticView.volleyballView.viewWithTag(1001) as? UILabel,
-//           let tennisLabel = staticView.tennisView.viewWithTag(1001) as? UILabel,
-//           let americanFootballLabel = staticView.americanFootballView.viewWithTag(1001) as? UILabel,
-//           let badmintonLabel = staticView.badmintonView.viewWithTag(1001) as? UILabel,
-//           let baseballLabel = staticView.baseballView.viewWithTag(1001) as? UILabel,
-//           let rugbyLabel = staticView.rugbyView.viewWithTag(1001) as? UILabel,
-//           let boxingLabel = staticView.boxingView.viewWithTag(1001) as? UILabel,
-//           let cyclingLabel = staticView.cyclingView.viewWithTag(1001) as? UILabel,
-//           let golfLabel = staticView.golfView.viewWithTag(1001) as? UILabel,
-//           let gymnasticsLabel = staticView.gymnasticsView.viewWithTag(1001) as? UILabel,
-//           let iceHockeyLabel = staticView.iceHockeyView.viewWithTag(1001) as? UILabel,
-//           let lacrosseLabel = staticView.lacrosseView.viewWithTag(1001) as? UILabel,
-//           let mmaLabel = staticView.mmaView.viewWithTag(1001) as? UILabel,
-//           let wrestlingLabel = staticView.wrestlingView.viewWithTag(1001) as? UILabel,
-//           let rowingLabel = staticView.rowingView.viewWithTag(1001) as? UILabel,
-//           let runningLabel = staticView.runningView.viewWithTag(1001) as? UILabel,
-//           let swimmingLabel = staticView.swimmingView.viewWithTag(1001) as? UILabel,
-//           let tableTennisLabel = staticView.tableTennisView.viewWithTag(1001) as? UILabel {
-//            soccerLabel.text = "?"
-//            basketballLabel.text = "?"
-//            volleyballLabel.text = "?"
-//            tennisLabel.text = "?"
-//            americanFootballLabel.text = "?"
-//            badmintonLabel.text = "?"
-//            baseballLabel.text = "?"
-//            rugbyLabel.text = "?"
-//            boxingLabel.text = "?"
-//            cyclingLabel.text = "?"
-//            golfLabel.text = "?"
-//            gymnasticsLabel.text = "?"
-//            iceHockeyLabel.text = "?"
-//            lacrosseLabel.text = "?"
-//            mmaLabel.text = "?"
-//            wrestlingLabel.text = "?"
-//            rowingLabel.text = "?"
-//            runningLabel.text = "?"
-//            swimmingLabel.text = "?"
-//            tableTennisLabel.text = "?"
-//            tennisLabel.text = "?"
-//        }
-////        warningViewRed.isHidden = true
-//        deleteButton.isHidden = true
-//        signInButton.isHidden = false
-//    }
-
-    //TODO: connect delete and sigin buttons
     func hiddenOrUnhidden() {
         let isGuestUser = UserDefaults.standard.bool(forKey: "isGuestUser")
-//        warningViewRed.isHidden = isGuestUser
-//        deleteButton.isHidden = isGuestUser
-//        signInButton.isHidden = !isGuestUser
+
+        DispatchQueue.main.async {
+            guard let cell = self.collectionView.cellForItem(at: IndexPath(item: 0, section: 2)) as? WarningAndButtonsCell else {
+                print("⚠️ WarningAndButtonsCell not found in the current view")
+                return
+            }
+            cell.deleteButton.isHidden = isGuestUser
+            cell.signInButton.isHidden = !isGuestUser
+            print("✅ Updated button visibility - Delete: \(cell.deleteButton.isHidden), SignIn: \(cell.signInButton.isHidden)")
+        }
     }
 
     private func navigationMainDashboard() {
@@ -523,73 +421,6 @@ extension ProfileViewController {
         }
     }
 
-//    private func updateTrainingStaticView() {
-//        let totalSoccerCount = workoutHistory.reduce(0) { $0 + $1.soccerWorkoutCount }
-//        let totalVolleyballCount = workoutHistory.reduce(0) { $0 + $1.volleyballWorkoutCount }
-//        let totalBasketballCount = workoutHistory.reduce(0) { $0 + $1.basketballWorkoutCount }
-//        let totalTennisCount = workoutHistory.reduce(0) { $0 + $1.tennisWorkoutCount }
-//
-//        // Update the static view with aggregated totals
-//        staticView.updateWorkoutPoints(
-//            soccer: totalSoccerCount,
-//            volleyball: totalVolleyballCount,
-//            basketball: totalBasketballCount,
-//            tennis: totalTennisCount
-//        )
-//    }
-
-//    private func updateTrainingStaticView() {
-//        var totalPoints: [String: Int] = [
-//            "soccer": 0,
-//            "volleyball": 0,
-//            "basketball": 0,
-//            "tennis": 0,
-//            "americanFootball": 0,
-//            "badminton": 0,
-//            "baseball": 0,
-//            "rugby": 0,
-//            "boxing": 0,
-//            "cycling": 0,
-//            "golf": 0,
-//            "gymnastics": 0,
-//            "iceHockey": 0,
-//            "lacrosse": 0,
-//            "mma": 0,
-//            "wrestling": 0,
-//            "rowing": 0,
-//            "running": 0,
-//            "swimming": 0,
-//            "tableTennis": 0
-//        ]
-//
-//        // Sum up all workouts from history
-//        for history in workoutHistory {
-//            totalPoints["soccer", default: 0] += history.soccerWorkoutCount
-//            totalPoints["volleyball", default: 0] += history.volleyballWorkoutCount
-//            totalPoints["basketball", default: 0] += history.basketballWorkoutCount
-//            totalPoints["tennis", default: 0] += history.tennisWorkoutCount
-//            totalPoints["americanFootball", default: 0] += history.americanFootballWorkoutCount
-//            totalPoints["badminton", default: 0] += history.badmintonWorkoutCount
-//            totalPoints["baseball", default: 0] += history.baseballWorkoutCount
-//            totalPoints["rugby", default: 0] += history.rugbyWorkoutCount
-//            totalPoints["boxing", default: 0] += history.boxingWorkoutCount
-//            totalPoints["cycling", default: 0] += history.cyclingWorkoutCount
-//            totalPoints["golf", default: 0] += history.golfWorkoutCount
-//            totalPoints["gymnastics", default: 0] += history.gymnasticsWorkoutCount
-//            totalPoints["iceHockey", default: 0] += history.iceHockeyWorkoutCount
-//            totalPoints["lacrosse", default: 0] += history.lacrosseWorkoutCount
-//            totalPoints["mma", default: 0] += history.mmaWorkoutCount
-//            totalPoints["wrestling", default: 0] += history.wrestlingWorkoutCount
-//            totalPoints["rowing", default: 0] += history.rowingWorkoutCount
-//            totalPoints["running", default: 0] += history.runningWorkoutCount
-//            totalPoints["swimming", default: 0] += history.swimmingWorkoutCount
-//            totalPoints["tableTennis", default: 0] += history.tableTennisWorkoutCount
-//        }
-//
-    //        // Update the UI with the total counts
-    //        staticView.updateWorkoutPoints(points: totalPoints)
-    //    }
-
     private func calculateTotalWorkoutPoints() -> [String: Int] {
         var totalPoints: [String: Int] = [
             "soccer": 0, "volleyball": 0, "basketball": 0, "tennis": 0,
@@ -662,7 +493,22 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
                 for: indexPath) as? HelperProfileView else {
                 return UICollectionViewCell()
             }
-
+            cell.rateButton = { [weak cell] in
+                guard let windowScene = cell?.window?.windowScene else { return }
+                SKStoreReviewController.requestReview(in: windowScene)
+            }
+            cell.privacyPolicy = { [weak self] in
+                self?.privacyPolicyButton()
+            }
+            cell.terms = { [weak self] in
+                self?.termsButton()
+            }
+            cell.support = { [weak self] in
+                self?.supportButton()
+            }
+//            cell.restorePurchases = { [weak self] in
+//                self?.restoreUserInfo()
+//            }
             return cell
         case 2:
             guard let cell = collectionView.dequeueReusableCell(
@@ -670,7 +516,16 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
                 for: indexPath) as? WarningAndButtonsCell else {
                 return UICollectionViewCell()
             }
+            let isGuestUser = UserDefaults.standard.bool(forKey: "isGuestUser")
+            cell.deleteButton.isHidden = isGuestUser
+            cell.signInButton.isHidden = !isGuestUser
 
+            cell.didPressSignInButton = { [weak self] in
+                self?.pressSignInButton()
+            }
+            cell.didPressDeleteButton = { [weak self] in
+                self?.pressDeleteButton()
+            }
             return cell
         default:
             return UICollectionViewCell()

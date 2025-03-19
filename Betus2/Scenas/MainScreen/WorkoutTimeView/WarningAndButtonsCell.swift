@@ -5,6 +5,9 @@ import SnapKit
 
 class WarningAndButtonsCell: UICollectionViewCell {
 
+    var didPressDeleteButton: (() -> Void)?
+    var didPressSignInButton: (() -> Void)?
+
     private lazy var warningAndButtonsViewBackground: UIView = {
         let view = UIView(frame: .zero)
         view.makeRoundCorners(32)
@@ -19,18 +22,19 @@ class WarningAndButtonsCell: UICollectionViewCell {
         return view
     }()
 
-    private lazy var deleteButton: UIButton = {
+    lazy var deleteButton: UIButton = {
         let view = UIButton(frame: .zero)
         view.setTitle("Delete Account", for: .normal)
         view.setTitleColor(UIColor.whiteColor, for: .normal)
         view.titleLabel?.font = UIFont.goldmanRegular(size: 14)
         view.makeRoundCorners(23)
         view.backgroundColor = .topBottomViewColorGray
+        view.isHidden = true
         view.addTarget(self, action: #selector(pressDeleteButton), for: .touchUpInside)
         return view
     }()
 
-    private lazy var signInButton: UIButton = {
+    lazy var signInButton: UIButton = {
         let view = UIButton(frame: .zero)
         view.setTitle("Sing In", for: .normal)
         view.setTitleColor(UIColor.whiteColor, for: .normal)
@@ -44,7 +48,6 @@ class WarningAndButtonsCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.topBottomViewColorGray
         setup()
         setupConstraints()
     }
@@ -66,7 +69,7 @@ class WarningAndButtonsCell: UICollectionViewCell {
         }
 
         warningViewRed.snp.remakeConstraints { make in
-            make.top.equalTo(warningAndButtonsViewBackground.snp.bottom).offset(8 * Constraint.yCoeff)
+            make.top.equalTo(warningAndButtonsViewBackground.snp.top).offset(8 * Constraint.yCoeff)
             make.leading.trailing.equalTo(warningAndButtonsViewBackground).inset(16 * Constraint.xCoeff)
             make.height.equalTo(81 * Constraint.yCoeff)
         }
@@ -85,10 +88,10 @@ class WarningAndButtonsCell: UICollectionViewCell {
     }
 
     @objc private func pressDeleteButton() {
-
+        didPressDeleteButton?()
     }
 
     @objc private func pressSignInButton() {
-
+        didPressSignInButton?()
     }
 }

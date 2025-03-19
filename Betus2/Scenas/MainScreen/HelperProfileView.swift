@@ -11,6 +11,13 @@ class HelperProfileView: UICollectionViewCell {
     var support: (() -> Void)?
     var restorePurchases: (() -> Void)?
 
+    private lazy var helperProfileView: UIView = {
+        let view = UIView(frame: .zero)
+        view.makeRoundCorners(32)
+        view.backgroundColor = .topBottomViewColorGray
+        return view
+    }()
+
     private lazy var privacyPolicyButton: UIButton = {
         let view = UIButton(frame: .zero)
         view.setTitle("Privacy policy", for: .normal)
@@ -78,6 +85,7 @@ class HelperProfileView: UICollectionViewCell {
     }
 
     private func setup() {
+        addSubview(helperProfileView)
         addSubview(privacyPolicyButton)
         addSubview(termsOfUseButton)
         addSubview(rateUsButton)
@@ -86,27 +94,31 @@ class HelperProfileView: UICollectionViewCell {
     }
 
     private func setupConstraints() {
+        helperProfileView.snp.remakeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
         privacyPolicyButton.snp.remakeConstraints { make in
-            make.top.equalTo(snp.top).offset(16 * Constraint.yCoeff)
-            make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
+            make.top.equalTo(helperProfileView.snp.top).offset(16 * Constraint.yCoeff)
+            make.leading.trailing.equalTo(helperProfileView).inset(16 * Constraint.xCoeff)
             make.height.equalTo(44 * Constraint.yCoeff)
         }
 
         termsOfUseButton.snp.remakeConstraints { make in
             make.top.equalTo(privacyPolicyButton.snp.bottom).offset(4 * Constraint.yCoeff)
-            make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
+            make.leading.trailing.equalTo(helperProfileView).inset(16 * Constraint.xCoeff)
             make.height.equalTo(44 * Constraint.yCoeff)
         }
 
         rateUsButton.snp.remakeConstraints { make in
             make.top.equalTo(termsOfUseButton.snp.bottom).offset(4 * Constraint.yCoeff)
-            make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
+            make.leading.trailing.equalTo(helperProfileView).inset(16 * Constraint.xCoeff)
             make.height.equalTo(44 * Constraint.yCoeff)
         }
 
         supportButton.snp.remakeConstraints { make in
             make.top.equalTo(rateUsButton.snp.bottom).offset(4 * Constraint.yCoeff)
-            make.leading.trailing.equalToSuperview().inset(16 * Constraint.xCoeff)
+            make.leading.trailing.equalTo(helperProfileView).inset(16 * Constraint.xCoeff)
             make.height.equalTo(44 * Constraint.yCoeff)
         }
 
