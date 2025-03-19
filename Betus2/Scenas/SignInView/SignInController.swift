@@ -238,7 +238,7 @@ class SignInController: UIViewController {
     }
 
     @objc private func clickSignInWithAppleButton() {
-        let mockPushToken = "mockPushToken"
+//        let mockPushToken = "mockPushToken"
 //        let mockAppleToken = "mockAppleToken"
 //
 //        UserDefaults.standard.setValue(mockPushToken, forKey: "PushToken")
